@@ -1,264 +1,223 @@
 import React, { useState, useMemo } from 'react';
+import InteractiveSlider from '../InteractiveSlider';
+import ExplorableFormula from '../ExplorableFormula';
+import DiscoveryInsight from '../DiscoveryInsight';
+import DiscoveryZone, { ComparisonView, ScaleReference } from '../DiscoveryZone';
 
 /**
- * 2D Interactive Pythagorean Visualization
- * Replaces 3D canvas when Pythagorean theorem is selected
+ * Premium Cube Page Component
+ * Implements "explorable explanation" for cube volume and surface area
  */
-const PythagoreanVisualization = ({ sideA, sideB, onSideAChange, onSideBChange }) => {
-  // Calculate hypotenuse
-  const sideC = useMemo(() => {
-    return Math.sqrt(sideA ** 2 + sideB ** 2);
-  }, [sideA, sideB]);
+const PremiumCubePage = ({ params, onParamsChange }) => {
+  const [initialLength] = useState(params.length);
+  const [highlightedVar, setHighlightedVar] = useState(null);
 
-  // Calculate areas of squares on each side
-  const areaA = sideA ** 2;
-  const areaB = sideB ** 2;
-  const areaC = sideC ** 2;
+  // Calculate volume
+  const volume = useMemo(() => {
+    return Math.pow(params.length, 3);
+  }, [params.length]);
 
-  // Scale factor for visualization - adjusted for better layout
-  const scale = 20;
+  // Calculate surface area
+  const surfaceArea = useMemo(() => {
+    return 6 * Math.pow(params.length, 2);
+  }, [params.length]);
 
-  // Check if it's a famous Pythagorean triple
-  const isFamousTriple = useMemo(() => {
-    const c = sideC;
-    return (sideA === 3 && sideB === 4 && Math.abs(c - 5) < 0.1) ||
-           (sideA === 4 && sideB === 3 && Math.abs(c - 5) < 0.1) ||
-           (sideA === 5 && sideB === 12 && Math.abs(c - 13) < 0.1) ||
-           (sideA === 12 && sideB === 5 && Math.abs(c - 13) < 0.1) ||
-           (sideA === 8 && sideB === 15 && Math.abs(c - 17) < 0.1) ||
-           (sideA === 15 && sideB === 8 && Math.abs(c - 17) < 0.1);
-  }, [sideA, sideB, sideC]);
+  // Calculate volume ratio for insights
+  const volumeRatio = useMemo(() => {
+    return volume / Math.pow(initialLength, 3);
+  }, [volume, initialLength]);
 
-  // Triangle vertices - right triangle with right angle at origin
-  const trianglePoints = {
-    origin: { x: 200, y: 300 }, // Right angle vertex
-    aPoint: { x: 200, y: 300 - sideA * scale }, // Vertical side a
-    bPoint: { x: 200 + sideB * scale, y: 300 } // Horizontal side b
-  };
+  // Calculate surface area ratio
+  const surfaceAreaRatio = useMemo(() => {
+    return surfaceArea / (6 * Math.pow(initialLength, 2));
+  }, [surfaceArea, initialLength]);
+
+  // Scale reference comparisons
+  const scaleComparisons = [
+    { icon: '🎲', name: 'Standard Die', size: 16, matches: Math.abs(params.length - 16) < 10 },
+    { icon: '🧊', name: 'Ice Cube', size: 30, matches: Math.abs(params.length - 30) < 15 },
+    { icon: '📦', name: 'Small Box', size: 100, matches: Math.abs(params.length - 100) < 30 },
+    { icon: '📦', name: 'Medium Box', size: 200, matches: Math.abs(params.length - 200) < 50 },
+    { icon: '🏢', name: 'Large Container', size: 400, matches: Math.abs(params.length - 400) < 100 },
+  ];
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-start p-3 pointer-events-none overflow-y-auto">
-      {/* Controls - At Very Top */}
-      <div className="w-full max-w-2xl mb-3 grid grid-cols-2 gap-6 pointer-events-auto z-50 relative shrink-0">
-        <div>
-          <label className="block text-xs font-semibold text-blue-300 mb-1">
-            Side a: {sideA}
-          </label>
-          <input
-            type="range"
-            min="1"
-            max="12"
-            step="1"
-            value={sideA}
-            onChange={(e) => onSideAChange(Number(e.target.value))}
-            className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500 hover:accent-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-          />
-        </div>
-        <div>
-          <label className="block text-xs font-semibold text-green-300 mb-1">
-            Side b: {sideB}
-          </label>
-          <input
-            type="range"
-            min="1"
-            max="12"
-            step="1"
-            value={sideB}
-            onChange={(e) => onSideBChange(Number(e.target.value))}
-            className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-green-500 hover:accent-green-400 focus:outline-none focus:ring-2 focus:ring-green-500/50"
-          />
-        </div>
-      </div>
+    <div className="space-y-8">
+      {/* Discovery Zone 1: Length Exploration */}
+      <DiscoveryZone
+        title="Explore: How Does Side Length Affect Volume?"
+        icon="🔍"
+        variant="primary"
+      >
+        <p className="text-slate-300 leading-relaxed mb-6">
+          Drag the slider below and notice how dramatically the volume changes when you adjust the side length.
+          The formula V = s³ means volume grows with the <strong>cube</strong> of the side length!
+        </p>
 
-      {/* Visual Proof - Main Content */}
-      <div className="w-full max-w-5xl bg-slate-950/40 rounded-2xl border border-white/10 p-4 pointer-events-auto shrink-0">
-        <svg
-          width="100%"
-          height="500"
-          viewBox="0 0 800 600"
-          preserveAspectRatio="xMidYMid meet"
-          className="mx-auto"
-        >
-          {/* Square on side a (vertical) - to the left of triangle */}
-          <rect
-            x={trianglePoints.origin.x - sideA * scale}
-            y={trianglePoints.aPoint.y}
-            width={sideA * scale}
-            height={sideA * scale}
-            fill="rgba(59, 130, 246, 0.25)"
-            stroke="#3b82f6"
-            strokeWidth="3"
-          />
-          <text
-            x={trianglePoints.origin.x - (sideA * scale) / 2}
-            y={trianglePoints.aPoint.y + (sideA * scale) / 2 + 5}
-            fill="#3b82f6"
-            fontSize="14"
-            fontWeight="bold"
-            textAnchor="middle"
-          >
-            a² = {areaA}
-          </text>
+        <InteractiveSlider
+          label="Side Length (s)"
+          value={params.length}
+          onChange={(s) => {
+            onParamsChange({ ...params, length: s, width: s, height: s });
+            setHighlightedVar('s');
+          }}
+          min={40}
+          max={220}
+          variableName="s"
+          unit=" units"
+          color="blue"
+        />
 
-          {/* Square on side b (horizontal) - below triangle */}
-          <rect
-            x={trianglePoints.origin.x}
-            y={trianglePoints.origin.y}
-            width={sideB * scale}
-            height={sideB * scale}
-            fill="rgba(34, 197, 94, 0.25)"
-            stroke="#22c55e"
-            strokeWidth="3"
-          />
-          <text
-            x={trianglePoints.origin.x + (sideB * scale) / 2}
-            y={trianglePoints.origin.y + (sideB * scale) / 2 + 5}
-            fill="#22c55e"
-            fontSize="14"
-            fontWeight="bold"
-            textAnchor="middle"
-          >
-            b² = {areaB}
-          </text>
+        <ExplorableFormula
+          formula="V = s³"
+          variables={{ s: params.length }}
+          highlight={highlightedVar}
+          showSteps={true}
+          result={volume}
+          unit="cubic units"
+        />
 
-          {/* Square on hypotenuse c - aligned with the hypotenuse */}
-          {
-            (() => {
-              // Calculate angle of the hypotenuse (from aPoint to bPoint)
-              const hypotenuseAngle = Math.atan2(
-                trianglePoints.bPoint.y - trianglePoints.aPoint.y,
-                trianglePoints.bPoint.x - trianglePoints.aPoint.x
-              ) * 180 / Math.PI;
-              
-              // Calculate the perpendicular angle (90 degrees offset from hypotenuse)
-              const perpendicularAngle = hypotenuseAngle + 90;
-              
-              // Calculate the offset distance for the square (perpendicular to hypotenuse)
-              // We want the square to be positioned so that one edge aligns with the hypotenuse
-              const offsetDistance = sideC * scale * 0.5;
-              
-              // Calculate the perpendicular offset
-              const offsetX = offsetDistance * Math.cos(perpendicularAngle * Math.PI / 180);
-              const offsetY = offsetDistance * Math.sin(perpendicularAngle * Math.PI / 180);
-              
-              // Position for the hypotenuse square (centered on the hypotenuse)
-              const centerX = (trianglePoints.aPoint.x + trianglePoints.bPoint.x) / 2 + offsetX;
-              const centerY = (trianglePoints.aPoint.y + trianglePoints.bPoint.y) / 2 + offsetY;
-              
-              // Calculate the top-left corner of the square
-              const squareX = centerX - (sideC * scale) / 2;
-              const squareY = centerY - (sideC * scale) / 2;
-              
-              return (
-                <g>
-                  <rect
-                    x={squareX}
-                    y={squareY}
-                    width={sideC * scale}
-                    height={sideC * scale}
-                    fill="rgba(168, 85, 247, 0.25)"
-                    stroke="#a855f7"
-                    strokeWidth="3"
-                    transform={`rotate(${hypotenuseAngle} ${centerX} ${centerY})`}
-                  />
-                  <text
-                    x={centerX}
-                    y={centerY + 5}
-                    fill="#a855f7"
-                    fontSize="14"
-                    fontWeight="bold"
-                    textAnchor="middle"
-                  >
-                    c² = {areaC.toFixed(2)}
-                  </text>
-                </g>
-              );
-            })()
-          }
+        {/* Aha! Moment 1: Doubling side length */}
+        <DiscoveryInsight
+          triggerCondition={() => params.length >= initialLength * 2 - 10 && params.length <= initialLength * 2 + 10}
+          message="🎉 Amazing Discovery! When you double the side length, volume increases by 8 times! This is because of the s³ (s cubed) in the formula: 2³ = 2×2×2 = 8"
+          icon="💡"
+          type="discovery"
+        />
 
-          {/* Triangle - Right triangle with right angle at origin */}
-          <path
-            d={`M ${trianglePoints.origin.x} ${trianglePoints.origin.y}
-                 L ${trianglePoints.aPoint.x} ${trianglePoints.aPoint.y}
-                 L ${trianglePoints.bPoint.x} ${trianglePoints.bPoint.y}
-                 Z`}
-            fill="rgba(59, 130, 246, 0.4)"
-            stroke="#3b82f6"
-            strokeWidth="4"
-          />
+        {/* Aha! Moment 2: Tripling side length */}
+        <DiscoveryInsight
+          triggerCondition={() => params.length >= initialLength * 3 - 15 && params.length <= initialLength * 3 + 15}
+          message="🤯 Incredible! Tripling the side length makes volume 27 times larger! 3³ = 3×3×3 = 27. This exponential growth is why small changes in dimensions create huge changes in volume."
+          icon="🚀"
+          type="discovery"
+        />
+      </DiscoveryZone>
 
-          {/* Right angle marker */}
-          <polyline
-            points={`
-              ${trianglePoints.origin.x + 20} ${trianglePoints.origin.y - 20}
-              ${trianglePoints.origin.x + 20} ${trianglePoints.origin.y}
-              ${trianglePoints.origin.x} ${trianglePoints.origin.y - 20}
-            `}
-            fill="none"
-            stroke="#fff"
-            strokeWidth="3"
-          />
+      {/* Discovery Zone 2: Surface Area vs Volume */}
+      <DiscoveryZone
+        title="Compare: Surface Area vs Volume"
+        icon="📐"
+        variant="secondary"
+      >
+        <p className="text-slate-300 leading-relaxed mb-6">
+          Notice how surface area and volume grow at different rates. Surface area grows with s² (squared),
+          while volume grows with s³ (cubed). This has profound implications in nature and engineering!
+        </p>
 
-          {/* Side Labels */}
-          <text
-            x={trianglePoints.aPoint.x - 15}
-            y={trianglePoints.aPoint.y + (trianglePoints.origin.y - trianglePoints.aPoint.y) / 2}
-            fill="#fff"
-            fontSize="16"
-            fontWeight="bold"
-            textAnchor="middle"
-          >
-            a = {sideA}
-          </text>
-          <text
-            x={trianglePoints.origin.x + (trianglePoints.bPoint.x - trianglePoints.origin.x) / 2}
-            y={trianglePoints.origin.y + 15}
-            fill="#fff"
-            fontSize="16"
-            fontWeight="bold"
-            textAnchor="middle"
-          >
-            b = {sideB}
-          </text>
-          <text
-            x={(trianglePoints.aPoint.x + trianglePoints.bPoint.x) / 2 - 15}
-            y={(trianglePoints.aPoint.y + trianglePoints.bPoint.y) / 2 - 15}
-            fill="#fff"
-            fontSize="16"
-            fontWeight="bold"
-            textAnchor="middle"
-          >
-            c = {sideC.toFixed(1)}
-          </text>
-        </svg>
+        <ComparisonView
+          items={[
+            {
+              label: 'Surface Area',
+              value: surfaceArea,
+              formula: 'SA = 6s²',
+              unit: 'square units',
+              color: 'green',
+              ratio: surfaceAreaRatio,
+              icon: '🔲'
+            },
+            {
+              label: 'Volume',
+              value: volume,
+              formula: 'V = s³',
+              unit: 'cubic units',
+              color: 'blue',
+              ratio: volumeRatio,
+              icon: '📦'
+            }
+          ]}
+        />
 
-        {/* Stats - Compact */}
-        <div className="mt-3 grid grid-cols-3 gap-2 text-center">
-          <div className="p-2 bg-blue-900/30 rounded-lg border border-blue-500/30">
-            <div className="text-blue-300 text-xs mb-1">a²</div>
-            <div className="text-white text-xl font-bold">{areaA}</div>
-          </div>
-          <div className="p-2 bg-green-900/30 rounded-lg border border-green-500/30">
-            <div className="text-green-300 text-xs mb-1">b²</div>
-            <div className="text-white text-xl font-bold">{areaB}</div>
-          </div>
-          <div className="p-2 bg-purple-900/30 rounded-lg border border-purple-500/30">
-            <div className="text-purple-300 text-xs mb-1">c²</div>
-            <div className="text-white text-xl font-bold">{areaC.toFixed(2)}</div>
-          </div>
-        </div>
+        <DiscoveryInsight
+          triggerCondition={() => params.length >= initialLength * 2 - 10 && params.length <= initialLength * 2 + 10}
+          message="🔍 Key Insight: When side length doubles, surface area increases by 4x (2² = 4) but volume increases by 8x (2³ = 8). This is why larger objects have less surface area relative to their volume - important for heat retention in animals!"
+          icon="🌡️"
+          type="insight"
+        />
+      </DiscoveryZone>
 
-        {/* Famous Triple Detection */}
-        {isFamousTriple && (
-          <div className="mt-2 p-2 bg-yellow-900/30 rounded-lg border border-yellow-500/30 text-center">
-            <div className="text-yellow-300 text-xs font-bold">
-              🎉 {sideA}-{sideB}-{sideC.toFixed(0)} Famous Triple!
+      {/* Discovery Zone 3: Real-World Scale */}
+      <DiscoveryZone
+        title="Discover: Real-World Scale References"
+        icon="🌍"
+        variant="accent"
+      >
+        <p className="text-slate-300 leading-relaxed mb-6">
+          Visualize the cube size with familiar objects from everyday life.
+        </p>
+
+        <ScaleReference
+          currentValue={params.length}
+          comparisons={scaleComparisons}
+          unit=" units"
+        />
+
+        <DiscoveryInsight
+          triggerCondition={() => params.length > 200}
+          message="🏗️ Wow! This cube is now larger than a shipping container! Imagine how much space this would occupy in real life."
+          icon="🏢"
+          type="milestone"
+        />
+
+        <DiscoveryInsight
+          triggerCondition={() => params.length < 60}
+          message="🎲 Tiny! This cube is smaller than a standard die. Notice how small cubes have very high surface area-to-volume ratios compared to large cubes."
+          icon="🔬"
+          type="insight"
+        />
+      </DiscoveryZone>
+
+      {/* Discovery Zone 4: Mathematical Properties */}
+      <DiscoveryZone
+        title="Explore: Space Diagonal of a Cube"
+        icon="📏"
+        variant="neutral"
+      >
+        <p className="text-slate-300 leading-relaxed mb-6">
+          The space diagonal (the longest distance between any two corners) follows a beautiful pattern.
+          Can you discover it?
+        </p>
+
+        <ExplorableFormula
+          formula="d = s√3"
+          variables={{
+            s: params.length,
+            '√3': Math.sqrt(3).toFixed(4)
+          }}
+          showSteps={true}
+          result={params.length * Math.sqrt(3)}
+          unit=" units"
+        />
+
+        <div className="bg-slate-800/50 rounded-xl p-6 border border-slate-700">
+          <p className="text-slate-300 text-sm mb-3">
+            <strong className="text-white">The Diagonal Pattern:</strong>
+          </p>
+          <div className="grid grid-cols-2 gap-4 text-xs">
+            <div className="bg-slate-900/50 rounded-lg p-3">
+              <div className="text-slate-400 mb-1">Side (s)</div>
+              <div className="text-blue-400 font-bold">{params.length.toFixed(1)} units</div>
+            </div>
+            <div className="bg-slate-900/50 rounded-lg p-3">
+              <div className="text-slate-400 mb-1">Space Diagonal (d)</div>
+              <div className="text-purple-400 font-bold">{(params.length * Math.sqrt(3)).toFixed(2)} units</div>
+            </div>
+            <div className="bg-slate-900/50 rounded-lg p-3 col-span-2">
+              <div className="text-slate-400 mb-1">Ratio (d/s)</div>
+              <div className="text-green-400 font-bold">≈ {Math.sqrt(3).toFixed(4)} (constant!)</div>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+
+        <DiscoveryInsight
+          triggerCondition={() => params.length > 100}
+          message="🧩 Fascinating! No matter how large the cube is, the space diagonal is always about 1.732 times the side length. This constant ratio (√3) is true for ALL cubes!"
+          icon="✨"
+          type="discovery"
+        />
+      </DiscoveryZone>
     </div>
   );
 };
 
-export default PythagoreanVisualization;
+export default PremiumCubePage;
