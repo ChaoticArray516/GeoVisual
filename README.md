@@ -2,6 +2,25 @@
 
 > Advanced Analytical Geometry Engine • Precise Visible/Hidden Line Separation
 
+## 📸 Screenshots & Demo
+
+### 🎬 Demo Video
+
+[![Watch Demo Video](demo.mp4)](demo.mp4)
+
+*Click the video above to watch the full demonstration*
+
+### 🖼️ Gallery
+
+#### Cone Visualization
+![Cone](screenshots/OPA0.png)
+
+#### Cylinder & Frustum
+![Cylinder and Frustum](screenshots/OPA1.png)
+
+#### Pentagonal Prism
+![Pentagonal Prism](screenshots/OPA2.png)
+
 ## 📖 Project Overview
 
 GeoVisual is a React-based 3D geometric visualization rendering engine that supports real-time rendering, parameter adjustment, and mathematical calculations for various common geometric shapes. This project uses pure mathematical algorithms for 3D projection and face detection, without relying on large 3D graphics libraries.
@@ -64,11 +83,17 @@ geovisual/
 │   ├── App.jsx           # Main application component (geometry engine core)
 │   ├── App.css           # Stylesheet
 │   └── main.jsx          # Application entry point
+├── screenshots/          # Project screenshots gallery
+│   ├── OPA0.png         # Cone visualization
+│   ├── OPA1.png         # Cylinder & Frustum
+│   └── OPA2.png         # Pentagonal Prism
+├── demo.mp4             # Interactive demo video
 ├── index.html            # HTML template
 ├── vite.config.js        # Vite configuration
 ├── tailwind.config.js    # Tailwind configuration
 ├── postcss.config.js     # PostCSS configuration
-└── package.json          # Project dependencies
+├── package.json          # Project dependencies
+└── README.md            # This file
 ```
 
 ## 🧮 Core Algorithms
@@ -119,6 +144,24 @@ isFrontFacing(p1, p2, p3) {
 | Triangular Pyramid | V = ⅓Bh | S = B + ³⁄₂al |
 | Sphere | V = ⁴⁄₃πr³ | S = 4πr² |
 
+## 🎬 Live Demo
+
+Check out the interactive demo video below to see GeoVisual in action:
+
+### Interactive Features Demonstration
+
+- **Shape Selection**: Seamlessly switch between 8 different geometric shapes
+- **Real-time Rendering**: Watch as parameters update the 3D visualization instantly
+- **Mathematical Formulas**: See volume and surface area calculations update in real-time
+- **Responsive Design**: Experience smooth performance across different devices
+
+### Rendering Highlights
+
+- **Educational Diagram Style**: Clean, textbook-quality 3D renderings
+- **Smart Line Visibility**: Automatic solid/dashed line separation for depth perception
+- **Gradient Filling**: Semi-transparent fills enhance 3D spatial understanding
+- **Optimized Performance**: Efficient SVG-based rendering engine
+
 ## 📝 Usage Instructions
 
 1. **Select Geometric Shape**: Click the top navigation bar to switch between different geometric shape types
@@ -156,6 +199,25 @@ ROTATION: { x: -25, y: -35 }
 1. Add a new case in `ShapeGenerator.generate()`
 2. Add configuration in `shapeTypes` array
 3. Add calculation formula in `calc` object
+
+## 🎨 Rendering Features
+
+### Shape-Specific Optimizations
+
+Each geometric shape is rendered with educational-quality precision:
+
+- **Cone**: 2 generatrix lines with base ellipse (front solid, back dashed)
+- **Cylinder**: Top solid circle, bottom split ellipse, 2 generatrix lines
+- **Frustum**: Similar to cylinder with adjustable top radius
+- **Pyramids**: Customized solid/dashed line patterns for optimal depth perception
+- **Prisms**: Smart edge visibility based on viewing angle
+
+### Visual Enhancements
+
+- **Gradient Filling**: Semi-transparent blue fills distinguish front/back faces
+- **Smart Line Styles**: Solid lines for visible edges, dashed for hidden
+- **Educational Style**: Clean, minimalist diagrams perfect for learning
+- **Real-time Updates**: Instant visual feedback as parameters change
 
 ## 📄 License
 
