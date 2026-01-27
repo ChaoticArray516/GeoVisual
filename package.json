@@ -3,7 +3,19 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Advanced Analytical Geometry Engine - 3D geometric visualization tool",
+  "description": "Interactive Geometry Dictionary - The complete reference for exploring geometric shapes, formulas, and mathematical proofs through interactive 3D visualizations",
+  "keywords": [
+    "interactive geometry dictionary",
+    "geometry encyclopedia",
+    "3D geometry visualization",
+    "mathematical proofs",
+    "geometry formulas",
+    "interactive math",
+    "geometry education",
+    "Pythagorean theorem",
+    "volume calculator",
+    "surface area calculator"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",

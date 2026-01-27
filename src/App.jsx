@@ -1,6 +1,13 @@
-import React, { useState, useMemo } from 'react';
-import { Settings2, BookOpen, Calculator, Ruler, Target, Globe, Box } from 'lucide-react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Settings2, Calculator, Ruler, Target, Globe, Box } from 'lucide-react';
 import './App.css';
+// Import premium components
+import PremiumSpherePage from './components/premiumPages/PremiumSpherePage';
+import PremiumConePage from './components/premiumPages/PremiumConePage';
+import PremiumCylinderPage from './components/premiumPages/PremiumCylinderPage';
+import PremiumCubePage from './components/premiumPages/PremiumCubePage';
+import PremiumPythagoreanPage from './components/premiumPages/PremiumPythagoreanPage';
+import PythagoreanVisualization from './components/PythagoreanVisualization';
 
 /**
  * Geometric Analytical Rendering Engine
@@ -126,17 +133,110 @@ const ShapeGenerator = {
 };
 
 const GeometryLab = () => {
-  const [shape, setShape] = useState('pent_prism');
-  const [params, setParams] = useState({ radius: 70, radius2: 40, height: 140, side: 100, length: 150, width: 100 });
+  const [shape, setShape] = useState('sphere');
+  const [params, setParams] = useState({ radius: 70, height: 140, length: 150, width: 100 });
+  const [pythagoreanSides, setPythagoreanSides] = useState({ sideA: 3, sideB: 4 });
 
   const shapeTypes = [
-    { id: 'cylinder', label: 'Cylinder' }, { id: 'frustum', label: 'Frustum' },
-    { id: 'cone', label: 'Cone' }, { id: 'cube', label: 'Cuboid' },
-    { id: 'pent_prism', label: 'Pentagonal Prism' }, { id: 'pyramid', label: 'Square Pyramid' },
-    { id: 'tri_pyramid', label: 'Triangular Pyramid' }, { id: 'sphere', label: 'Sphere' }
+    { id: 'sphere', label: 'Sphere' },
+    { id: 'cone', label: 'Cone' },
+    { id: 'cylinder', label: 'Cylinder' },
+    { id: 'cube', label: 'Cuboid' },
+    { id: 'pythagorean', label: 'Pythagorean' }
   ];
 
+  // Dynamic meta tags for SEO (Requirement 3)
+  useEffect(() => {
+    const metadata = {
+      cylinder: {
+        title: "Cylinder Volume - Interactive Geometry Dictionary | GeoVisual",
+        description: "Interactive cylinder volume calculator. Adjust radius and height in real-time. Learn V = πr²h formula with visual proofs and examples.",
+        ogImage: "/og-cylinder.png"
+      },
+      frustum: {
+        title: "Frustum Volume - Interactive Geometry Dictionary | GeoVisual",
+        description: "Calculate frustum volume interactively. Adjust top/bottom radius and height. Understand V = (1/3)πh(r₁²+r₂²+r₁r₂) formula.",
+        ogImage: "/og-frustum.png"
+      },
+      cone: {
+        title: "Cone Volume & Surface Area - Interactive Geometry Dictionary | GeoVisual",
+        description: "Explore cone volume formula with interactive 3D model. Adjust height and radius to see real-time calculations. Learn derivation of V = (1/3)πr²h.",
+        ogImage: "/og-cone.png"
+      },
+      cube: {
+        title: "Cube Volume Calculator - Interactive Geometry Dictionary | GeoVisual",
+        description: "Interactive cuboid volume calculator. Adjust length, width, height in real-time. Learn V = l·w·h formula with visual demonstrations.",
+        ogImage: "/og-cube.png"
+      },
+      pent_prism: {
+        title: "Pentagonal Prism Volume - Interactive Geometry Dictionary | GeoVisual",
+        description: "Calculate pentagonal prism volume interactively. Visualize 5-sided prism with real-time measurements.",
+        ogImage: "/og-pentagonal.png"
+      },
+      pyramid: {
+        title: "Square Pyramid Volume - Interactive Geometry Dictionary | GeoVisual",
+        description: "Interactive pyramid volume calculator. Adjust base and height. Learn V = (1/3)a²h formula with 3D model.",
+        ogImage: "/og-pyramid.png"
+      },
+      tri_pyramid: {
+        title: "Triangular Pyramid Volume - Interactive Geometry Dictionary | GeoVisual",
+        description: "Calculate triangular pyramid (tetrahedron) volume. Interactive 3D visualization with formula explanations.",
+        ogImage: "/og-tri-pyramid.png"
+      },
+      sphere: {
+        title: "Sphere Volume Calculator - Interactive Geometry Dictionary | GeoVisual",
+        description: "Interactive 3D sphere visualization. Calculate volume with real-time radius adjustment. Learn the V = (4/3)πr³ formula with interactive demonstrations.",
+        ogImage: "/og-sphere.png"
+      },
+      pythagorean: {
+        title: "Pythagorean Theorem - Interactive Geometry Dictionary | GeoVisual",
+        description: "Interactive Pythagorean theorem visual proof. Adjust triangle sides to see a² + b² = c² in action. Discover famous triples and geometric relationships.",
+        ogImage: "/og-pythagorean.png"
+      }
+    };
+
+    const meta = metadata[shape] || metadata.cube;
+
+    // Update document title
+    document.title = meta.title;
+
+    // Update meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) metaDescription.setAttribute('content', meta.description);
+
+    // Update Open Graph tags
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    const ogImage = document.querySelector('meta[property="og:image"]');
+
+    if (ogTitle) ogTitle.setAttribute('content', meta.title);
+    if (ogDesc) ogDesc.setAttribute('content', meta.description);
+    if (ogImage) ogImage.setAttribute('content', meta.ogImage);
+
+    // Update Twitter Card tags
+    const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+    const twitterDesc = document.querySelector('meta[name="twitter:description"]');
+    const twitterImage = document.querySelector('meta[name="twitter:image"]');
+
+    if (twitterTitle) twitterTitle.setAttribute('content', meta.title);
+    if (twitterDesc) twitterDesc.setAttribute('content', meta.description);
+    if (twitterImage) twitterImage.setAttribute('content', meta.ogImage);
+
+    // Update canonical URL
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute('href', `https://geovisual.com/${shape}`);
+  }, [shape]);
+
   const renderData = useMemo(() => {
+    // Skip 3D rendering for Pythagorean theorem (uses 2D visualization instead)
+    if (shape === 'pythagorean') {
+      return {
+        renderedFaces: [],
+        renderedHiddenEdges: [],
+        renderedVisibleEdges: []
+      };
+    }
+
     const { vertices, faces } = ShapeGenerator.generate(shape, params);
     const projectedPts = vertices.map(v => Engine.project(v.x, v.y, v.z));
 
@@ -623,7 +723,91 @@ const GeometryLab = () => {
     return { renderedFaces, renderedHiddenEdges, renderedVisibleEdges };
   }, [shape, params]);
 
+  // Educational content for each shape (Requirement 1: HTML content layer for SEO)
+  const educationalContent = useMemo(() => {
+    const content = {
+      cylinder: {
+        title: "Cylinder Volume - Interactive Geometry Dictionary Entry",
+        introduction: "A cylinder is a three-dimensional solid with two parallel circular bases connected by a curved surface. It's one of the most common shapes in engineering and everyday objects, from soda cans to pipes.",
+        formula: "The volume of a cylinder is calculated using the formula V = πr²h, where r is the radius of the circular base and h is the height. This formula comes from multiplying the area of the circular base (πr²) by the height.",
+        applications: "Cylinders are everywhere: engines, pipes, drums, water tanks, and more. Understanding cylinder volume helps in engineering design, manufacturing, and construction.",
+        derivation: "The formula derivation: Start with a circle of area πr². Stack identical circles from height 0 to h. The total volume is the base area multiplied by height."
+      },
+      sphere: {
+        title: "Sphere Volume - Interactive Geometry Dictionary Entry",
+        introduction: "A sphere is a perfectly round three-dimensional object where every point on its surface is equidistant from its center. Spheres appear throughout nature and mathematics, from planets to bubbles.",
+        formula: "The volume of a sphere is V = (4/3)πr³, where r is the radius. This elegant formula was discovered by Archimedes over 2,000 years ago.",
+        applications: "Spherical shapes minimize surface area for a given volume, which is why planets and bubbles form spheres. Understanding sphere volume is crucial in physics, astronomy, and engineering.",
+        derivation: "Archimedes discovered that a sphere's volume is exactly 2/3 of its surrounding cylinder. This insight led to the formula V = (4/3)πr³."
+      },
+      cone: {
+        title: "Cone Volume & Surface Area - Interactive Geometry Dictionary Entry",
+        introduction: "A cone is a three-dimensional shape with a circular base that tapers to a single point called the apex. From ice cream cones to traffic cones, this shape is ubiquitous.",
+        formula: "The volume of a cone is V = (1/3)πr²h, where r is the base radius and h is the height. The factor of 1/3 means a cone holds exactly one-third the volume of a cylinder with the same base and height.",
+        applications: "Cones are used in architecture, design, and manufacturing. The cone shape helps objects like funnels and speakers direct flow efficiently.",
+        derivation: "The 1/3 factor can be proven using calculus or by comparing with a cylinder. Three cones of the same base and height can exactly fill one cylinder."
+      },
+      cube: {
+        title: "Cube Volume Calculator - Interactive Geometry Dictionary Entry",
+        introduction: "A cuboid (rectangular prism) is a three-dimensional shape with six rectangular faces. It's the most common box shape, used in packaging, construction, and storage.",
+        formula: "The volume formula V = l·w·h multiplies length, width, and height. This simple formula applies to all rectangular boxes, making it fundamental to geometry and engineering.",
+        applications: "From shipping containers to room dimensions, cuboid volume calculations are essential in logistics, construction, and everyday life.",
+        derivation: "The formula comes from the area of the base rectangle (l·w) multiplied by the height (h). Stack identical layers from bottom to top."
+      },
+      pythagorean: {
+        title: "Pythagorean Theorem - Interactive Geometry Dictionary Entry",
+        introduction: "The Pythagorean theorem is one of the most fundamental results in mathematics: in a right triangle, the square of the hypotenuse equals the sum of squares of the other two sides (a² + b² = c²). This relationship has been known for over 4000 years and has hundreds of proofs.",
+        formula: "The theorem states: a² + b² = c², where 'a' and 'b' are the lengths of the legs (the sides that form the right angle), and 'c' is the length of the hypotenuse (the longest side, opposite the right angle). Use the interactive visualization above to explore this relationship!",
+        applications: "The Pythagorean theorem is used everywhere: construction (ensuring right angles with 3-4-5 triangles), navigation (GPS and trilateration), computer graphics (distance calculations), physics (vector analysis), and everyday problems like finding the length of a ladder or diagonal of a TV screen.",
+        derivation: "There are over 350 known proofs! The most famous include: (1) Rearrangement proof - four identical triangles form the same large square in two ways, (2) Similar triangles proof - dropping an altitude creates proportional relationships, (3) Euclid's windmill proof - geometric construction showing area equivalence. Explore all three proofs in the discovery zones below!"
+      },
+      frustum: {
+        title: "Frustum Volume - Interactive Geometry Dictionary Entry",
+        introduction: "A frustum is what remains when you cut the top off a cone or pyramid parallel to its base. This shape appears in buckets, lamp shades, and architecture.",
+        formula: "The frustum volume formula V = (1/3)πh(r₁²+r₂²+r₁r₂) accounts for both the top radius (r₂) and bottom radius (r₁).",
+        applications: "Frustums are used in architecture for roofs, in manufacturing for funnels and buckets, and in computer graphics for 3D modeling.",
+        derivation: "The formula combines two cone volumes: a full cone minus a smaller cone removed from the top."
+      },
+      pent_prism: {
+        title: "Pentagonal Prism Volume - Interactive Geometry Dictionary Entry",
+        introduction: "A pentagonal prism has two pentagonal bases connected by rectangular faces. It's a prism with a five-sided base.",
+        formula: "The volume V = Bh where B is the base area and h is height. For a regular pentagon, B = (5/4)a²cot(36°).",
+        applications: "Pentagonal prisms appear in architecture and decorative design, though less common than rectangular prisms.",
+        derivation: "Calculate the area of the pentagonal base, then multiply by height to get volume."
+      },
+      pyramid: {
+        title: "Square Pyramid Volume - Interactive Geometry Dictionary Entry",
+        introduction: "A square pyramid has a square base and four triangular faces meeting at an apex. The Great Pyramid of Giza is the most famous example.",
+        formula: "Volume V = (1/3)a²h, where a is the side length of the square base and h is the height. Like all pyramids, it's 1/3 of a prism with same base.",
+        applications: "Pyramids are used in architecture, monuments, and design. The shape is stable and visually striking.",
+        derivation: "Three identical pyramids can fill one prism, giving the 1/3 factor."
+      },
+      tri_pyramid: {
+        title: "Triangular Pyramid Volume - Interactive Geometry Dictionary Entry",
+        introduction: "A triangular pyramid (tetrahedron) has four triangular faces. It's the simplest three-dimensional shape with flat faces.",
+        formula: "Volume V = (1/3)Bh where B is the triangular base area. For an equilateral triangle, B = (√3/4)a².",
+        applications: "Tetrahedra appear in molecular geometry (like methane molecules) and as structural elements in engineering.",
+        derivation: "The formula derives from the base area multiplied by height, divided by 3."
+      }
+    };
+    return content[shape] || content.cube;
+  }, [shape]);
+
   const calc = useMemo(() => {
+    // Special handling for Pythagorean theorem
+    if (shape === 'pythagorean') {
+      const { sideA: a, sideB: b } = pythagoreanSides;
+      const c = Math.sqrt(a * a + b * b);
+      return {
+        v: c,
+        s: a * a + b * b,
+        fV: 'a² + b² = c²',
+        fS: `c = √(${a}² + ${b}²) = ${c.toFixed(2)}`,
+        fb: `The hypotenuse c is ${c.toFixed(2)}`
+      };
+    }
+
+    // Original volume/area calculations for 3D shapes
     const { radius: r, radius2: r2, height: h, side: a, length: l, width: w } = params;
     const PI = Math.PI;
     const res = {
@@ -637,7 +821,7 @@ const GeometryLab = () => {
       sphere: { v: (4/3)*PI*r**3, s: 4*PI*r*r, fV: 'V = 4/3πr³', fS: 'S = 4πr²' }
     };
     return res[shape] || res.cube;
-  }, [shape, params]);
+  }, [shape, params, pythagoreanSides]);
 
   return (
     <div className="min-h-screen bg-[#070b14] text-slate-100 font-sans flex flex-col selection:bg-blue-500/30">
@@ -647,7 +831,7 @@ const GeometryLab = () => {
             GeoVisual
           </h1>
           <p className="text-[10px] text-slate-500 font-bold mt-1 tracking-widest uppercase flex items-center gap-1">
-            <Box size={12} className="text-blue-600" /> Advanced Analytical Geometry Engine • Precise Visible/Hidden Line Separation
+            <Box size={12} className="text-blue-600" /> Interactive Geometry Dictionary • 3D Visualizations • Explorable Proofs
           </p>
         </div>
         <nav className="flex flex-wrap justify-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-white/5 backdrop-blur-md">
@@ -681,28 +865,33 @@ const GeometryLab = () => {
                   </div>
                 </>
               )}
-              {['cylinder', 'frustum', 'cone', 'sphere'].includes(shape) && (
+              {['cylinder', 'cone', 'sphere'].includes(shape) && (
                 <div className="space-y-3">
                   <div className="flex justify-between text-[10px] font-bold text-slate-400"><span>Radius R</span><span>{params.radius}</span></div>
                   <input type="range" min="30" max="120" value={params.radius} onChange={(e) => setParams({...params, radius: +e.target.value})} className="w-full h-1 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500" />
                 </div>
               )}
-              {shape === 'frustum' && (
-                <div className="space-y-3">
-                  <div className="flex justify-between text-[10px] font-bold text-slate-400"><span>Top Radius R₂</span><span>{params.radius2}</span></div>
-                  <input type="range" min="0" max="120" value={params.radius2} onChange={(e) => setParams({...params, radius2: +e.target.value})} className="w-full h-1 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-orange-500" />
+              {shape === 'pythagorean' && (
+                <div className="space-y-4 p-4 bg-slate-950/40 rounded-xl border border-cyan-500/20">
+                  <p className="text-xs text-slate-400 text-center">
+                    ⬆️ Use the interactive sliders in the visualization area above to adjust sides a and b
+                  </p>
+                  <div className="grid grid-cols-2 gap-4 text-center">
+                    <div>
+                      <div className="text-2xl font-mono text-cyan-400">{pythagoreanSides.sideA}</div>
+                      <div className="text-[10px] text-slate-500 uppercase">Side a</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-mono text-green-400">{pythagoreanSides.sideB}</div>
+                      <div className="text-[10px] text-slate-500 uppercase">Side b</div>
+                    </div>
+                  </div>
                 </div>
               )}
-              {shape !== 'sphere' && (
+              {['cylinder', 'cone', 'cube'].includes(shape) && (
                 <div className="space-y-3">
                   <div className="flex justify-between text-[10px] font-bold text-slate-400"><span>Height H</span><span>{params.height}</span></div>
                   <input type="range" min="40" max="220" value={params.height} onChange={(e) => setParams({...params, height: +e.target.value})} className="w-full h-1 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-600" />
-                </div>
-              )}
-              {['pent_prism', 'pyramid', 'tri_pyramid'].includes(shape) && (
-                <div className="space-y-3">
-                  <div className="flex justify-between text-[10px] font-bold text-slate-400"><span>Base Edge a</span><span>{params.side}</span></div>
-                  <input type="range" min="40" max="180" value={params.side} onChange={(e) => setParams({...params, side: +e.target.value})} className="w-full h-1 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-500" />
                 </div>
               )}
             </div>
@@ -710,16 +899,16 @@ const GeometryLab = () => {
 
           <section className="bg-slate-900/40 border border-slate-800 p-8 rounded-[2rem] backdrop-blur-md">
             <h3 className="flex items-center gap-2 mb-6 text-[10px] font-black uppercase text-indigo-400 tracking-widest">
-              <BookOpen size={14} /> Mathematical Derivation
+              <Calculator size={14} /> {shape === 'pythagorean' ? 'Pythagorean Formula' : 'Mathematical Derivation'}
             </h3>
             <div className="space-y-4 font-serif italic text-center text-slate-300">
-               {calc.fb && <div className="p-3 bg-blue-900/20 rounded-xl border border-blue-500/20 text-xs text-blue-200 non-italic">{calc.fb}</div>}
+               {shape !== 'pythagorean' && calc.fb && <div className="p-3 bg-blue-900/20 rounded-xl border border-blue-500/20 text-xs text-blue-200 non-italic">{calc.fb}</div>}
                <div className="p-4 bg-slate-950/40 rounded-xl border border-white/5 text-xl font-bold">{calc.fV}</div>
                <div className="p-4 bg-slate-950/40 rounded-xl border border-white/5 text-xl font-bold text-blue-300">{calc.fS}</div>
             </div>
             <div className="mt-6 p-4 bg-slate-950/20 rounded-xl border border-white/5 grid grid-cols-2 gap-4">
-               <div><p className="text-[10px] text-slate-500 uppercase font-sans">Volume</p><p className="text-lg font-mono">{calc.v.toLocaleString(undefined, {maximumFractionDigits:1})}</p></div>
-               <div><p className="text-[10px] text-slate-500 uppercase font-sans">Area</p><p className="text-lg font-mono text-cyan-400">{calc.s.toLocaleString(undefined, {maximumFractionDigits:1})}</p></div>
+               <div><p className="text-[10px] text-slate-500 uppercase font-sans">{shape === 'pythagorean' ? 'Hypotenuse c' : 'Volume'}</p><p className="text-lg font-mono">{calc.v.toLocaleString(undefined, {maximumFractionDigits:shape === 'pythagorean' ? 2 : 1})}</p></div>
+               <div><p className="text-[10px] text-slate-500 uppercase font-sans">{shape === 'pythagorean' ? 'Sum of Squares' : 'Area'}</p><p className="text-lg font-mono text-cyan-400">{calc.s.toLocaleString(undefined, {maximumFractionDigits:shape === 'pythagorean' ? 2 : 1})}</p></div>
             </div>
           </section>
         </aside>
@@ -727,21 +916,34 @@ const GeometryLab = () => {
         <section className="lg:col-span-8 flex flex-col gap-6">
           <div className="flex-1 bg-[#0a0e1a] border border-white/5 rounded-[3rem] relative flex items-center justify-center overflow-hidden shadow-inner group">
             <div className="absolute inset-0 opacity-[0.03]" style={{backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '40px 40px'}}></div>
-            <svg width="100%" height="100%" viewBox="-300 -300 600 600" preserveAspectRatio="xMidYMid meet" className="relative z-10 transition-transform duration-500">
-              <defs>
-                <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#1e40af" stopOpacity="0.2" />
-                </linearGradient>
-              </defs>
-              {/* Render by layers: hidden lines -> filled faces -> visible lines */}
-              <g>{renderData.renderedHiddenEdges}</g>
-              <g>{renderData.renderedFaces}</g>
-              <g>{renderData.renderedVisibleEdges}</g>
-            </svg>
-            <div className="absolute bottom-8 px-5 py-2 bg-slate-900/80 border border-white/5 rounded-full text-[9px] font-black uppercase tracking-[0.2em] text-slate-500 flex items-center gap-2">
-              <Ruler size={12} className="text-blue-500" /> Analytical "Parsed Surface" Rendering Engine
-            </div>
+
+            {/* Conditional rendering: Pythagorean 2D visualization or 3D geometry */}
+            {shape === 'pythagorean' ? (
+              <PythagoreanVisualization
+                sideA={pythagoreanSides.sideA}
+                sideB={pythagoreanSides.sideB}
+                onSideAChange={(value) => setPythagoreanSides({ ...pythagoreanSides, sideA: value })}
+                onSideBChange={(value) => setPythagoreanSides({ ...pythagoreanSides, sideB: value })}
+              />
+            ) : (
+              <>
+                <svg width="100%" height="100%" viewBox="-300 -300 600 600" preserveAspectRatio="xMidYMid meet" className="relative z-10 transition-transform duration-500">
+                  <defs>
+                    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
+                      <stop offset="100%" stopColor="#1e40af" stopOpacity="0.2" />
+                    </linearGradient>
+                  </defs>
+                  {/* Render by layers: hidden lines -> filled faces -> visible lines */}
+                  <g>{renderData.renderedHiddenEdges}</g>
+                  <g>{renderData.renderedFaces}</g>
+                  <g>{renderData.renderedVisibleEdges}</g>
+                </svg>
+                <div className="absolute bottom-8 px-5 py-2 bg-slate-900/80 border border-white/5 rounded-full text-[9px] font-black uppercase tracking-[0.2em] text-slate-500 flex items-center gap-2">
+                  <Ruler size={12} className="text-blue-500" /> Analytical "Parsed Surface" Rendering Engine
+                </div>
+              </>
+            )}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -758,6 +960,57 @@ const GeometryLab = () => {
               <p className="text-xs text-slate-400 leading-relaxed font-light italic">Precise visible/hidden line separation is fundamental to high-quality math courseware and 3D design software (e.g., AutoCAD), helping learners establish robust spatial coordinate system intuition.</p>
             </div>
           </div>
+
+          {/* SEO Content Layer - Requirement 1 */}
+          <article className="bg-slate-900/40 border border-slate-800 p-8 rounded-[2rem] backdrop-blur-md">
+            <h1 className="text-2xl font-bold text-white mb-6">{educationalContent.title}</h1>
+
+            <section className="mb-8">
+              <h2 className="text-lg font-semibold text-blue-400 mb-3">What is this shape?</h2>
+              <p className="text-sm text-slate-300 leading-relaxed">{educationalContent.introduction}</p>
+            </section>
+
+            <section className="mb-8">
+              <h2 className="text-lg font-semibold text-blue-400 mb-3">Volume Formula</h2>
+              <p className="text-sm text-slate-300 leading-relaxed">{educationalContent.formula}</p>
+            </section>
+
+            <section className="mb-8">
+              <h2 className="text-lg font-semibold text-blue-400 mb-3">Real-World Applications</h2>
+              <p className="text-sm text-slate-300 leading-relaxed">{educationalContent.applications}</p>
+            </section>
+
+            <section className="mb-8">
+              <h2 className="text-lg font-semibold text-blue-400 mb-3">Formula Derivation</h2>
+              <p className="text-sm text-slate-300 leading-relaxed">{educationalContent.derivation}</p>
+            </section>
+
+            <section className="p-6 bg-blue-900/20 rounded-xl border border-blue-500/20">
+              <h2 className="text-lg font-semibold text-blue-300 mb-3">Interactive Exploration</h2>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                Use the controls on the left to adjust parameters and see how the volume changes in real-time.
+                Notice how changing the radius, height, or other dimensions affects the total volume.
+                This interactive visualization helps build intuition for geometric relationships.
+              </p>
+            </section>
+          </article>
+
+          {/* Premium Interactive Pages - Requirement 4 */}
+          {shape === 'sphere' && (
+            <PremiumSpherePage params={params} onParamsChange={setParams} />
+          )}
+          {shape === 'cone' && (
+            <PremiumConePage params={params} onParamsChange={setParams} />
+          )}
+          {shape === 'cylinder' && (
+            <PremiumCylinderPage params={params} onParamsChange={setParams} />
+          )}
+          {shape === 'cube' && (
+            <PremiumCubePage params={params} onParamsChange={setParams} />
+          )}
+          {shape === 'pythagorean' && (
+            <PremiumPythagoreanPage />
+          )}
         </section>
       </main>
     </div>
