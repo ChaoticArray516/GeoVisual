@@ -1,10 +1,24 @@
 # GeoVisual - Interactive Geometry Dictionary
 
-> The Complete Interactive Geometry Reference • 3D Visualizations • Explorable Mathematical Proofs
+> The Complete Interactive Geometry Reference • 3D Visualizations • Explorable Mathematical Proofs • Swiss Style Design
 
 ## 🎯 Project Overview
 
-**GeoVisual** is an **Interactive Geometry Dictionary** - the comprehensive reference for exploring geometric shapes and mathematical relationships through interactive visualizations. Unlike static textbooks, GeoVisual brings geometry to life with manipulatable 3D models, real-time formula calculations, and discoverable proofs.
+**GeoVisual** is an **Interactive Geometry Dictionary** with a **Swiss Style + Digital Brutalism** design philosophy - the comprehensive reference for exploring geometric shapes and mathematical relationships through interactive visualizations. Unlike static textbooks, GeoVisual brings geometry to life with manipulatable 3D models, real-time formula calculations, and discoverable proofs.
+
+### Design Philosophy: Swiss Style + Digital Brutalism
+
+GeoVisual embraces **academic rigor and visual clarity** through Swiss Style design principles:
+- **拒绝圆角** (No Rounded Corners) - Sharp 2px borders, geometric precision
+- **显性网格** (Explicit Grid) - Visible 2px black borders define structure
+- **学术感标题** (Academic Typography) - Times New Roman serif headings for authority
+- **去色化** (Minimal Color) - Pure white (#FFFFFF) and black (#000000) foundation
+- **高对比度** (High Contrast) - Maximum readability with pure black text
+- **单一强调色** (Single Accent) - Mathematical Blue (#0055FF) for emphasis only
+- **移除阴影** (No Shadows) - Flat design, content over decoration
+- **纸笔交互** (Paper-Like Interaction) - Border changes on hover, not background effects
+
+The design transforms the interface from a generic "AI-generated SaaS" into a **serious mathematical publication** - clean, academic, and unmistakably professional.
 
 As an **interactive geometry encyclopedia**, GeoVisual serves students, teachers, and math enthusiasts by providing:
 
@@ -81,9 +95,11 @@ npm run preview
 
 - **Framework**: React 18.3.1
 - **Build Tool**: Vite 5.3.1
-- **Styling**: Tailwind CSS 3.4.4
+- **Styling**: Tailwind CSS 3.4.4 with **Custom Swiss Design System**
 - **Icons**: Lucide React 0.400.0
 - **Math Engine**: Pure JavaScript (no external math libraries)
+- **Typography**: Times New Roman (headings), Inter (body), JetBrains Mono (math)
+- **Color System**: Custom Swiss tokens (Black, White, Math Blue #0055FF)
 
 ## 🏗️ Project Structure
 
@@ -103,11 +119,11 @@ geovisual/
 │   │   ├── InteractiveSlider.jsx           # Touch-friendly sliders
 │   │   └── PythagoreanVisualization.jsx    # 2D triangle visualization
 │   ├── App.jsx                             # Main app with 3D engine
-│   ├── App.css                             # Custom animations
+│   ├── App.css                             # Swiss typography system
 │   └── main.jsx                            # Entry point
 ├── index.html
 ├── vite.config.js
-├── tailwind.config.js
+├── tailwind.config.js                      # Swiss design tokens
 ├── postcss.config.js
 └── package.json
 ```
@@ -689,6 +705,41 @@ GeoVisual Team
 
 ## 📝 Changelog & Recent Updates
 
+### Version 2.0.0 (January 28, 2026) - Swiss Style Redesign
+
+#### 🎨 Major Design Overhaul
+- ✨ **Complete Swiss Style Implementation** - Transformed to Swiss Style + Digital Brutalism
+- ✨ **Custom Design System** - 100% custom Swiss tokens (no default Tailwind colors)
+- ✨ **Academic Typography** - Times New Roman headings, Inter body, JetBrains Mono math
+- ✨ **High Contrast Design** - Pure black on white for maximum readability
+- ✨ **Removed All Emojis** - Clean, professional interface (100+ emojis removed)
+- ✨ **Removed All Gradients** - Solid colors only (no gradient backgrounds)
+- ✨ **Removed All Shadows** - Flat design (decorative elements eliminated)
+- ✨ **Sharp Geometry** - 2px borders, maximum 2px corner radius
+- ✨ **Single Accent Color** - Mathematical Blue (#0055FF) for emphasis only
+
+#### 📐 Component Refactoring
+- **All Premium Pages** - Refactored to Swiss Style (Sphere, Cone, Cylinder, Cube, Pythagorean)
+- **DiscoveryZone** - Removed emojis, Swiss color system
+- **DiscoveryInsight** - Text-based insights (no icons)
+- **InteractiveSlider** - Swiss slider styles (square thumb, 2px black border)
+- **ExplorableFormula** - Serif headings, Swiss color scheme
+- **PythagoreanVisualization** - White background, black borders, Swiss colors
+
+#### 🔧 Technical Improvements
+- **Custom Tailwind Config** - Swiss design tokens (`swiss-white`, `swiss-black`, `math-blue`, etc.)
+- **Global CSS Overhaul** - Swiss typography system in App.css
+- **Formula Formatting** - Auto-bold formulas with highlighted keywords
+- **Responsive Sliders** - Swiss slider styles with proper touch targets
+- **Color System** - Complete custom color palette (3 colors: black, white, math-blue)
+
+#### 📚 Documentation
+- **SWISS_REFACTORING_GUIDE.md** - Step-by-step implementation guide
+- **SWISS_REDESIGN_SUMMARY.md** - Complete before/after documentation
+- **Updated README.md** - Design system documentation
+
+---
+
 ### Version 1.0.0 (January 2026)
 
 #### ✅ Completed Features
@@ -716,9 +767,9 @@ GeoVisual Team
 
 **Note:** This project is for educational purposes, demonstrating interactive math visualization using pure JavaScript algorithms. No heavy 3D libraries (Three.js, Babylon.js) are used - all 3D projection is calculated from scratch!
 
-**Status:** ✅ All 5 premium pages implemented and tested
+**Status:** ✅ Swiss Style Redesign Complete (v2.0.0)
 
-**Latest Updates:** January 28, 2026 - Pythagorean visualization refined (removed labels, improved square alignment)
+**Latest Updates:** January 28, 2026 - Complete Swiss Style + Digital Brutalism implementation
 
 **Next Steps:**
 - [ ] Add more geometric shapes (Torus, Helix, Ellipsoid)
@@ -747,10 +798,12 @@ GeoVisual Team
 - ✅ **Visual Proof Library** - Interactive demonstrations of mathematical theorems
 
 ### Design Excellence
-- ✅ **Clean Aesthetic** - Minimal labels, maximal clarity
-- ✅ **Color-Coded Systems** - Blue (a/growth), Green (b/organic), Purple (c/wisdom)
-- ✅ **Smooth Animations** - Bounce-in effects, formula highlighting
-- ✅ **Dark Theme** - Eye-friendly slate/cyan color palette
+- ✅ **Swiss Style Design System** - Academic rigor with Times New Roman headings
+- ✅ **High Contrast** - Pure black on white for maximum readability
+- ✅ **Minimal Aesthetic** - Removed all emojis, gradients, and shadows
+- ✅ **Sharp Geometry** - 2px borders, maximum 2px corner radius
+- ✅ **Single Accent Color** - Mathematical Blue (#0055FF) for emphasis only
+- ✅ **Math-First Typography** - JetBrains Mono for formulas, serif for headings
 
 ## 📊 Metrics & Achievements
 
@@ -772,3 +825,167 @@ GeoVisual Team
 - **60fps Rendering** - Smooth animations
 - **44px Touch Targets** - Apple HIG compliant
 - **0 External Math Libs** - Pure JavaScript
+
+---
+
+## 🎨 Swiss Style Design System
+
+### Design Philosophy
+
+GeoVisual implements a **Swiss Style + Digital Brutalism** design system, transforming the interface from generic "AI-generated SaaS" into a serious mathematical publication.
+
+### Core Principles
+
+| Principle | Implementation |
+|-----------|----------------|
+| **拒绝圆角** (No Rounded Corners) | Maximum 2px border radius (`rounded-swiss-sm`) |
+| **显性网格** (Explicit Grid) | Visible 2px black borders on all containers |
+| **学术感标题** (Academic Typography) | Times New Roman serif for all headings |
+| **去色化** (Minimal Color) | Pure white (#FFFFFF) background only |
+| **高对比度** (High Contrast) | Pure black (#000000) text for maximum readability |
+| **单一强调色** (Single Accent) | Mathematical Blue (#0055FF) for emphasis only |
+| **移除阴影** (No Shadows) | Flat design - all shadows removed |
+| **纸笔交互** (Paper-Like) | Border changes on hover, not background effects |
+
+### Color Palette
+
+```css
+/* Foundation Colors */
+--swiss-white: #FFFFFF        /* Primary background */
+--swiss-offwhite: #FAFAFA     /* Secondary backgrounds */
+--swiss-black: #000000        /* Primary text */
+--swiss-charcoal: #1A1A1A     /* Secondary text */
+
+/* Accent Colors */
+--math-blue: #0055FF          /* Single accent color */
+--math-blue-light: #E6F0FF    /* Accent backgrounds */
+--geo-red: #FF3300            /* Rare use for warnings */
+--geo-red-light: #FFF0EB      /* Warning backgrounds */
+
+/* Functional Colors */
+--divider-gray: #E5E5E5       /* Subtle borders */
+--border-gray: #D1D5DB        /* Form borders */
+```
+
+### Typography System
+
+```css
+/* Display Headings (Serif - Academic Authority) */
+font-family: 'Times New Roman', Times, serif;
+
+/* Body Text (Sans-Serif - Readability) */
+font-family: 'Inter', system-ui, -apple-system, sans-serif;
+
+/* Math & Code (Monospace - Precision) */
+font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+```
+
+**Type Scale:**
+- H1: 3.5rem (56px) - Main titles
+- H2: 2rem (32px) - Section headings
+- H3: 1.5rem (24px) - Subsection headings
+- Body: 1rem (16px) - Paragraph text
+- Small: 0.875rem (14px) - Labels and captions
+- Math: Variable - Mono-spaced for formulas
+
+### Border System
+
+```jsx
+// Explicit grid borders
+className="border-2 border-swiss-black rounded-swiss-sm"
+
+// Subtle dividers
+className="border border-divider-gray"
+
+// Sharp corners (primary)
+rounded-swiss-none  // 0px
+
+// Minimal rounding (rare)
+rounded-swiss-sm    // 2px
+```
+
+### Component Patterns
+
+#### Cards & Containers
+```jsx
+// Primary card
+<div className="bg-swiss-white border-2 border-swiss-black rounded-swiss-sm p-8">
+
+// Secondary card
+<div className="bg-swiss-offwhite border-2 border-swiss-black rounded-swiss-sm p-8">
+
+// Accent card
+<div className="bg-math-blue-light border-2 border-swiss-black rounded-swiss-sm p-8">
+```
+
+#### Buttons
+```jsx
+// Active state
+<button className="bg-swiss-black text-swiss-white border-2 border-swiss-black rounded-swiss-sm">
+
+// Inactive state
+<button className="bg-swiss-white text-swiss-black border-2 border-swiss-black rounded-swiss-sm hover:border-math-blue hover:text-math-blue">
+```
+
+#### Formulas & Math
+```jsx
+// Formula display
+<span className="font-serif-display text-display-xl font-semibold text-swiss-black">
+  V = (4/3)πr³
+</span>
+
+// Highlighted variable
+<span className="bg-math-blue-light text-math-blue px-2 py-1 rounded-swiss-sm font-semibold">
+  r
+</span>
+
+// Math numbers
+<span className="font-mono-math text-display-2xl text-math-blue">
+  {volume.toFixed(2)}
+</span>
+```
+
+### Interactive States
+
+```css
+/* Hover: Border changes (not background) */
+.swiss-hover:hover {
+  border-width: 3px;
+  border-color: #0055FF;
+}
+
+/* Focus: Visible outline */
+*:focus-visible {
+  outline: 2px solid #0055FF;
+  outline-offset: 2px;
+}
+```
+
+### What Was Removed
+
+To achieve the Swiss Style aesthetic, the following were completely removed:
+- ❌ All emoji icons (100+ instances)
+- ❌ All gradient backgrounds
+- ❌ All shadows (`shadow-lg`, `shadow-md`, etc.)
+- ❌ All rounded corners over 2px
+- ❌ All opacity modifiers (`/20`, `/30`, etc.)
+- ❌ Default Tailwind colors (replaced with custom Swiss tokens)
+
+### Design Tokens
+
+See `tailwind.config.js` for complete Swiss design system implementation:
+- Custom colors in `theme.colors`
+- Custom font families in `theme.fontFamily`
+- Custom type scale in `theme.fontSize`
+- Custom border radius in `theme.borderRadius`
+
+### Accessibility
+
+The Swiss Style design naturally enhances accessibility:
+- ✅ **High Contrast** - Pure black on white exceeds WCAG AAA
+- ✅ **Large Touch Targets** - 44px minimum (Apple HIG)
+- ✅ **Semantic HTML** - Proper heading structure
+- ✅ **Focus Indicators** - 2px Math Blue outline
+- ✅ **No Motion Issues** - Respects `prefers-reduced-motion`
+
+---
