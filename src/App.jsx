@@ -963,30 +963,30 @@ const GeometryLab = () => {
 
           {/* SEO Content Layer - Requirement 1 */}
           <article className="bg-slate-900/40 border border-slate-800 p-8 rounded-[2rem] backdrop-blur-md">
-            <h1 className="text-2xl font-bold text-white mb-6">{educationalContent.title}</h1>
+            <h2 className="text-2xl font-bold text-white mb-6">{educationalContent.title}</h2>
 
             <section className="mb-8">
-              <h2 className="text-lg font-semibold text-blue-400 mb-3">What is this shape?</h2>
+              <h3 className="text-lg font-semibold text-blue-400 mb-3">What is this shape?</h3>
               <p className="text-sm text-slate-300 leading-relaxed">{educationalContent.introduction}</p>
             </section>
 
             <section className="mb-8">
-              <h2 className="text-lg font-semibold text-blue-400 mb-3">Volume Formula</h2>
+              <h3 className="text-lg font-semibold text-green-400 mb-3">Volume Formula</h3>
               <p className="text-sm text-slate-300 leading-relaxed">{educationalContent.formula}</p>
             </section>
 
             <section className="mb-8">
-              <h2 className="text-lg font-semibold text-blue-400 mb-3">Real-World Applications</h2>
+              <h3 className="text-lg font-semibold text-purple-400 mb-3">Real-World Applications</h3>
               <p className="text-sm text-slate-300 leading-relaxed">{educationalContent.applications}</p>
             </section>
 
             <section className="mb-8">
-              <h2 className="text-lg font-semibold text-blue-400 mb-3">Formula Derivation</h2>
+              <h3 className="text-lg font-semibold text-orange-400 mb-3">Formula Derivation</h3>
               <p className="text-sm text-slate-300 leading-relaxed">{educationalContent.derivation}</p>
             </section>
 
             <section className="p-6 bg-blue-900/20 rounded-xl border border-blue-500/20">
-              <h2 className="text-lg font-semibold text-blue-300 mb-3">Interactive Exploration</h2>
+              <h3 className="text-lg font-semibold text-blue-300 mb-3">Interactive Exploration</h3>
               <p className="text-sm text-slate-300 leading-relaxed">
                 Use the controls on the left to adjust parameters and see how the volume changes in real-time.
                 Notice how changing the radius, height, or other dimensions affects the total volume.
