@@ -41,7 +41,7 @@ const PythagoreanVisualization = ({ sideA, sideB, onSideAChange, onSideBChange }
       {/* Controls - At Very Top */}
       <div className="w-full max-w-2xl mb-3 grid grid-cols-2 gap-6 pointer-events-auto z-50 relative shrink-0">
         <div>
-          <label className="block text-xs font-semibold text-blue-300 mb-1">
+          <label className="block font-sans-body text-display-sm font-semibold text-swiss-black mb-1">
             Side a: {sideA}
           </label>
           <input
@@ -51,11 +51,11 @@ const PythagoreanVisualization = ({ sideA, sideB, onSideAChange, onSideBChange }
             step="1"
             value={sideA}
             onChange={(e) => onSideAChange(Number(e.target.value))}
-            className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500 hover:accent-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+            className="w-full"
           />
         </div>
         <div>
-          <label className="block text-xs font-semibold text-green-300 mb-1">
+          <label className="block font-sans-body text-display-sm font-semibold text-swiss-black mb-1">
             Side b: {sideB}
           </label>
           <input
@@ -65,13 +65,13 @@ const PythagoreanVisualization = ({ sideA, sideB, onSideAChange, onSideBChange }
             step="1"
             value={sideB}
             onChange={(e) => onSideBChange(Number(e.target.value))}
-            className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-green-500 hover:accent-green-400 focus:outline-none focus:ring-2 focus:ring-green-500/50"
+            className="w-full"
           />
         </div>
       </div>
 
       {/* Visual Proof - Main Content */}
-      <div className="w-full max-w-5xl bg-slate-950/40 rounded-2xl border border-white/10 p-4 pointer-events-auto shrink-0">
+      <div className="w-full max-w-5xl bg-swiss-white rounded-swiss-sm border-2 border-swiss-black p-6 pointer-events-auto shrink-0">
         <svg
           width="100%"
           height="500"
@@ -85,17 +85,18 @@ const PythagoreanVisualization = ({ sideA, sideB, onSideAChange, onSideBChange }
             y={trianglePoints.aPoint.y}
             width={sideA * scale}
             height={sideA * scale}
-            fill="rgba(59, 130, 246, 0.25)"
-            stroke="#3b82f6"
-            strokeWidth="3"
+            fill="#E6F0FF"
+            stroke="#0055FF"
+            strokeWidth="2"
           />
           <text
             x={trianglePoints.origin.x - (sideA * scale) / 2}
             y={trianglePoints.aPoint.y + (sideA * scale) / 2 + 5}
-            fill="#3b82f6"
+            fill="#0055FF"
             fontSize="14"
-            fontWeight="bold"
+            fontWeight="600"
             textAnchor="middle"
+            className="font-sans-body"
           >
             a² = {areaA}
           </text>
@@ -106,17 +107,18 @@ const PythagoreanVisualization = ({ sideA, sideB, onSideAChange, onSideBChange }
             y={trianglePoints.origin.y}
             width={sideB * scale}
             height={sideB * scale}
-            fill="rgba(34, 197, 94, 0.25)"
-            stroke="#22c55e"
-            strokeWidth="3"
+            fill="#E6F0FF"
+            stroke="#0055FF"
+            strokeWidth="2"
           />
           <text
             x={trianglePoints.origin.x + (sideB * scale) / 2}
             y={trianglePoints.origin.y + (sideB * scale) / 2 + 5}
-            fill="#22c55e"
+            fill="#0055FF"
             fontSize="14"
-            fontWeight="bold"
+            fontWeight="600"
             textAnchor="middle"
+            className="font-sans-body"
           >
             b² = {areaB}
           </text>
@@ -129,26 +131,26 @@ const PythagoreanVisualization = ({ sideA, sideB, onSideAChange, onSideBChange }
                 trianglePoints.bPoint.y - trianglePoints.aPoint.y,
                 trianglePoints.bPoint.x - trianglePoints.aPoint.x
               ) * 180 / Math.PI;
-              
+
               // Calculate the perpendicular angle (90 degrees offset from hypotenuse)
               const perpendicularAngle = hypotenuseAngle + 90;
-              
+
               // Calculate the offset distance for the square (perpendicular to hypotenuse)
               // We want the square to be positioned so that the opposite edge aligns with the hypotenuse
               const offsetDistance = sideC * scale * 0.5;
-              
+
               // Calculate the perpendicular offset (negative to move in opposite direction)
               const offsetX = -offsetDistance * Math.cos(perpendicularAngle * Math.PI / 180);
               const offsetY = -offsetDistance * Math.sin(perpendicularAngle * Math.PI / 180);
-              
+
               // Position for the hypotenuse square (centered on the hypotenuse)
               const centerX = (trianglePoints.aPoint.x + trianglePoints.bPoint.x) / 2 + offsetX;
               const centerY = (trianglePoints.aPoint.y + trianglePoints.bPoint.y) / 2 + offsetY;
-              
+
               // Calculate the top-left corner of the square
               const squareX = centerX - (sideC * scale) / 2;
               const squareY = centerY - (sideC * scale) / 2;
-              
+
               return (
                 <g>
                   <rect
@@ -156,18 +158,19 @@ const PythagoreanVisualization = ({ sideA, sideB, onSideAChange, onSideBChange }
                     y={squareY}
                     width={sideC * scale}
                     height={sideC * scale}
-                    fill="rgba(168, 85, 247, 0.25)"
-                    stroke="#a855f7"
-                    strokeWidth="3"
+                    fill="#FAFAFA"
+                    stroke="#000000"
+                    strokeWidth="2"
                     transform={`rotate(${hypotenuseAngle} ${centerX} ${centerY})`}
                   />
                   <text
                     x={centerX}
                     y={centerY + 5}
-                    fill="#a855f7"
+                    fill="#000000"
                     fontSize="14"
-                    fontWeight="bold"
+                    fontWeight="600"
                     textAnchor="middle"
+                    className="font-sans-body"
                   >
                     c² = {areaC.toFixed(2)}
                   </text>
@@ -182,9 +185,10 @@ const PythagoreanVisualization = ({ sideA, sideB, onSideAChange, onSideBChange }
                  L ${trianglePoints.aPoint.x} ${trianglePoints.aPoint.y}
                  L ${trianglePoints.bPoint.x} ${trianglePoints.bPoint.y}
                  Z`}
-            fill="rgba(59, 130, 246, 0.4)"
-            stroke="#3b82f6"
-            strokeWidth="4"
+            fill="#0055FF"
+            fillOpacity="0.3"
+            stroke="#0055FF"
+            strokeWidth="3"
           />
 
           {/* Right angle marker */}
@@ -195,33 +199,33 @@ const PythagoreanVisualization = ({ sideA, sideB, onSideAChange, onSideBChange }
               ${trianglePoints.origin.x} ${trianglePoints.origin.y - 20}
             `}
             fill="none"
-            stroke="#fff"
-            strokeWidth="3"
+            stroke="#000000"
+            strokeWidth="2"
           />
 
         </svg>
 
         {/* Stats - Compact */}
         <div className="mt-3 grid grid-cols-3 gap-2 text-center">
-          <div className="p-2 bg-blue-900/30 rounded-lg border border-blue-500/30">
-            <div className="text-blue-300 text-xs mb-1">a²</div>
-            <div className="text-white text-xl font-bold">{areaA}</div>
+          <div className="p-3 bg-swiss-offwhite rounded-swiss-sm border-2 border-swiss-black">
+            <div className="font-sans-body text-display-sm text-swiss-black mb-1">a²</div>
+            <div className="font-mono-math text-display-xl text-math-blue">{areaA}</div>
           </div>
-          <div className="p-2 bg-green-900/30 rounded-lg border border-green-500/30">
-            <div className="text-green-300 text-xs mb-1">b²</div>
-            <div className="text-white text-xl font-bold">{areaB}</div>
+          <div className="p-3 bg-swiss-offwhite rounded-swiss-sm border-2 border-swiss-black">
+            <div className="font-sans-body text-display-sm text-swiss-black mb-1">b²</div>
+            <div className="font-mono-math text-display-xl text-math-blue">{areaB}</div>
           </div>
-          <div className="p-2 bg-purple-900/30 rounded-lg border border-purple-500/30">
-            <div className="text-purple-300 text-xs mb-1">c²</div>
-            <div className="text-white text-xl font-bold">{areaC.toFixed(2)}</div>
+          <div className="p-3 bg-swiss-offwhite rounded-swiss-sm border-2 border-swiss-black">
+            <div className="font-sans-body text-display-sm text-swiss-black mb-1">c²</div>
+            <div className="font-mono-math text-display-xl text-swiss-black">{areaC.toFixed(2)}</div>
           </div>
         </div>
 
         {/* Famous Triple Detection */}
         {isFamousTriple && (
-          <div className="mt-2 p-2 bg-yellow-900/30 rounded-lg border border-yellow-500/30 text-center">
-            <div className="text-yellow-300 text-xs font-bold">
-              🎉 {sideA}-{sideB}-{sideC.toFixed(0)} Famous Triple!
+          <div className="mt-2 p-3 bg-math-blue-light rounded-swiss-sm border-2 border-swiss-black text-center">
+            <div className="font-sans-body text-display-sm font-semibold text-swiss-black">
+              {sideA}-{sideB}-{sideC.toFixed(0)} Famous Triple!
             </div>
           </div>
         )}

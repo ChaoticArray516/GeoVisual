@@ -5,26 +5,25 @@ import React from 'react';
  * Container for interactive exploration zones
  *
  * @param {string} title - Zone title
- * @param {string} icon - Icon emoji
+ * @param {string} icon - Icon emoji (will be removed in Swiss Style)
  * @param {React.ReactNode} children - Content
  * @param {string} variant - Visual style: 'primary', 'secondary', 'tertiary'
  */
 const DiscoveryZone = ({
   title,
-  icon = '🔍',
+  icon,
   children,
   variant = 'primary'
 }) => {
   const variantStyles = {
-    primary: 'bg-gradient-to-br from-blue-900/30 to-purple-900/30 border-blue-500/20',
-    secondary: 'bg-gradient-to-br from-slate-900/50 to-slate-800/30 border-slate-700/30',
-    tertiary: 'bg-gradient-to-br from-cyan-900/30 to-teal-900/30 border-cyan-500/20'
+    primary: 'bg-swiss-white border-swiss-black',
+    secondary: 'bg-swiss-offwhite border-swiss-black',
+    tertiary: 'bg-math-blue-light border-swiss-black'
   };
 
   return (
-    <section className={`p-8 rounded-3xl border-2 backdrop-blur-md ${variantStyles[variant]} mb-6`}>
-      <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-        <span className="text-3xl">{icon}</span>
+    <section className={`p-8 rounded-swiss-sm border-2 ${variantStyles[variant]} mb-6`}>
+      <h2 className="font-serif-display text-display-2xl text-swiss-black mb-6">
         {title}
       </h2>
       <div className="space-y-4">
@@ -39,10 +38,10 @@ const DiscoveryZone = ({
  */
 export const ExperimentCard = ({ title, description, children }) => {
   return (
-    <div className="p-6 bg-slate-950/40 rounded-2xl border border-white/10 hover:border-blue-500/30 transition-all">
-      <h3 className="text-lg font-semibold text-blue-300 mb-2">{title}</h3>
+    <div className="p-6 bg-swiss-offwhite rounded-swiss-sm border-2 border-swiss-black hover:border-math-blue transition-all">
+      <h3 className="font-serif-display text-display-lg text-swiss-black mb-2">{title}</h3>
       {description && (
-        <p className="text-sm text-slate-400 mb-4">{description}</p>
+        <p className="font-sans-body text-display-base text-swiss-charcoal mb-4">{description}</p>
       )}
       {children}
     </div>
@@ -58,11 +57,11 @@ export const ComparisonView = ({ items }) => {
       {items.map((item, index) => (
         <div
           key={index}
-          className="p-6 bg-slate-950/60 rounded-2xl border-2 border-blue-500/20 hover:border-blue-500/40 transition-all"
+          className="p-6 bg-swiss-white rounded-swiss-sm border-2 border-swiss-black hover:border-math-blue transition-all"
         >
-          <h4 className="text-base font-bold text-white mb-2">{item.title}</h4>
-          <div className="text-3xl font-mono text-cyan-400 mb-3">{item.value}</div>
-          <p className="text-xs text-slate-400">{item.description}</p>
+          <h4 className="font-sans-body text-display-base font-semibold text-swiss-black mb-2">{item.title}</h4>
+          <div className="font-mono-math text-display-xl text-math-blue mb-3">{item.value}</div>
+          <p className="font-sans-body text-display-sm text-swiss-charcoal">{item.description}</p>
         </div>
       ))}
     </div>
@@ -74,20 +73,19 @@ export const ComparisonView = ({ items }) => {
  */
 export const ScaleReference = ({ value, unit, comparisons }) => {
   return (
-    <div className="mt-6 p-6 bg-slate-950/40 rounded-2xl border border-purple-500/20">
-      <h4 className="text-base font-semibold text-purple-300 mb-4">📏 Real-World Scale</h4>
+    <div className="mt-6 p-6 bg-swiss-offwhite rounded-swiss-sm border-2 border-swiss-black">
+      <h4 className="font-sans-body text-display-base font-semibold text-swiss-black mb-4">Real-World Scale Reference</h4>
       <div className="space-y-3">
         {comparisons.map((comparison, index) => (
-          <div key={index} className="flex items-center gap-3">
-            <span className="text-2xl">{comparison.icon}</span>
+          <div key={index} className="flex items-center gap-3 p-3 bg-swiss-white border border-divider-gray">
             <div className="flex-1">
-              <div className="text-sm text-white">{comparison.name}</div>
-              <div className="text-xs text-slate-400">
+              <div className="font-sans-body text-display-sm text-swiss-black">{comparison.name}</div>
+              <div className="font-sans-body text-display-sm text-swiss-charcoal">
                 {comparison.size} {unit}
               </div>
             </div>
             {comparison.matches && (
-              <span className="px-3 py-1 bg-green-500/20 text-green-300 text-xs rounded-full">
+              <span className="px-3 py-1 bg-math-blue text-swiss-white font-sans-body text-display-sm rounded-swiss-sm">
                 Current size
               </span>
             )}

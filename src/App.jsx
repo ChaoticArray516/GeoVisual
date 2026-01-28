@@ -724,6 +724,36 @@ const GeometryLab = () => {
   }, [shape, params]);
 
   // Educational content for each shape (Requirement 1: HTML content layer for SEO)
+  // Function to format educational content with bold formulas and highlighted keywords
+  const formatEducationalText = (text, shapeType) => {
+    // Common mathematical patterns to bold
+    const patterns = [
+      // Formulas like V = πr²h, a² + b² = c², etc.
+      { regex: /([A-Za-z]\s*=\s*(?:\([^)]+\)\s*)?(?:π)?\s*(?:[A-Za-z]²?|[0-9.]+(?:⁰|¹|²|³|⁴|⁵|⁶|⁷|⁸|⁹)?)\s*(?:[+*/-]\s*(?:π)?\s*[A-Za-z0-9.²³¹⁰⁴⁵⁶⁷⁸⁹]+)*)/g, class: 'font-mono-math font-bold text-swiss-black' },
+      // Individual variables like V, r, h, a, b, c when used in formulas
+      { regex: /\b[Vlrhabcr₁₂]\b/g, class: 'font-mono-math font-bold text-math-blue' },
+      // Greek letter π
+      { regex: /π/g, class: 'font-serif-display font-bold text-math-blue' },
+      // Numbers with superscripts (squared, cubed, etc.)
+      { regex: /\d+[²³¹⁰⁴⁵⁶⁷⁸⁹]/g, class: 'font-mono-math font-bold text-swiss-black' },
+      // Keywords to highlight (shape-specific and common terms)
+      { regex: /\b(volume|radius|height|cylinder|sphere|cone|cube|rectangle|circular base|hypotenuse|Pythagorean theorem|right triangle|formula|surface area)\b/gi, class: 'font-bold text-math-blue' },
+      // Important numbers and measurements
+      { regex: /\b(2\/3|1\/3|4\/3|3-4-5)\b/g, class: 'font-mono-math font-bold text-swiss-black' },
+    ];
+
+    let formattedText = text;
+
+    // Apply each pattern
+    patterns.forEach(pattern => {
+      formattedText = formattedText.replace(pattern.regex, (match) => {
+        return `<span class="${pattern.class}">${match}</span>`;
+      });
+    });
+
+    return formattedText;
+  };
+
   const educationalContent = useMemo(() => {
     const content = {
       cylinder: {
@@ -824,21 +854,21 @@ const GeometryLab = () => {
   }, [shape, params, pythagoreanSides]);
 
   return (
-    <div className="min-h-screen bg-[#070b14] text-slate-100 font-sans flex flex-col selection:bg-blue-500/30">
-      <header className="max-w-7xl w-full mx-auto p-6 flex flex-col md:flex-row justify-between items-center gap-6 z-20">
+    <div className="min-h-screen bg-swiss-white text-swiss-black font-sans-body flex flex-col">
+      <header className="max-w-7xl w-full mx-auto p-6 flex flex-col md:flex-row justify-between items-center gap-6 border-b-2 border-swiss-black">
         <div>
-          <h1 className="text-3xl font-black tracking-tighter bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent uppercase italic">
+          <h1 className="font-serif-display text-display-4xl tracking-tight text-swiss-black">
             GeoVisual
           </h1>
-          <p className="text-[10px] text-slate-500 font-bold mt-1 tracking-widest uppercase flex items-center gap-1">
-            <Box size={12} className="text-blue-600" /> Interactive Geometry Dictionary • 3D Visualizations • Explorable Proofs
+          <p className="font-sans-body text-display-sm text-swiss-charcoal mt-2">
+            Interactive Geometry Dictionary
           </p>
         </div>
-        <nav className="flex flex-wrap justify-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-white/5 backdrop-blur-md">
+        <nav className="flex flex-wrap justify-center gap-0 border-2 border-swiss-black">
           {shapeTypes.map(s => (
             <button key={s.id} onClick={() => setShape(s.id)}
-              className={`px-3 py-1.5 rounded-lg text-[10px] font-black transition-all uppercase ${
-                shape === s.id ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-500 hover:text-slate-200 hover:bg-white/5'
+              className={`px-4 py-2 rounded-swiss-sm border-2 border-swiss-black font-sans-body text-display-sm font-semibold transition-all uppercase ${
+                shape === s.id ? 'bg-swiss-black text-swiss-white border-swiss-black' : 'bg-swiss-white text-swiss-black border-swiss-black hover:border-math-blue hover:text-math-blue'
               }`}>
               {s.label}
             </button>
@@ -848,74 +878,74 @@ const GeometryLab = () => {
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 pb-10">
         <aside className="lg:col-span-4 space-y-6">
-          <section className="bg-slate-900/40 border border-slate-800 p-8 rounded-[2rem] backdrop-blur-md shadow-2xl">
-            <h2 className="flex items-center gap-2 mb-8 text-[10px] font-black uppercase text-slate-500 tracking-widest">
-              <Settings2 size={14} className="text-blue-400" /> Parameter Control
-            </h2>
+          <section className="bg-swiss-white border-2 border-swiss-black p-8 rounded-swiss-sm">
+            <h3 className="flex items-center gap-2 mb-8 font-sans-body text-display-sm font-semibold uppercase text-swiss-black tracking-wider">
+              <Settings2 size={14} className="text-swiss-black" /> Parameter Control
+            </h3>
             <div className="space-y-8">
               {shape === 'cube' && (
                 <>
                   <div className="space-y-3">
-                    <div className="flex justify-between text-[10px] font-bold text-slate-400"><span>Length L</span><span>{params.length}</span></div>
-                    <input type="range" min="40" max="220" value={params.length} onChange={(e) => setParams({...params, length: +e.target.value})} className="w-full h-1 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500" />
+                    <div className="flex justify-between font-sans-body text-display-sm font-semibold text-swiss-black"><span>Length L</span><span className="font-mono-math">{params.length}</span></div>
+                    <input type="range" min="40" max="220" value={params.length} onChange={(e) => setParams({...params, length: +e.target.value})} className="w-full" />
                   </div>
                   <div className="space-y-3">
-                    <div className="flex justify-between text-[10px] font-bold text-slate-400"><span>Width W</span><span>{params.width}</span></div>
-                    <input type="range" min="40" max="220" value={params.width} onChange={(e) => setParams({...params, width: +e.target.value})} className="w-full h-1 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500" />
+                    <div className="flex justify-between font-sans-body text-display-sm font-semibold text-swiss-black"><span>Width W</span><span className="font-mono-math">{params.width}</span></div>
+                    <input type="range" min="40" max="220" value={params.width} onChange={(e) => setParams({...params, width: +e.target.value})} className="w-full" />
                   </div>
                 </>
               )}
               {['cylinder', 'cone', 'sphere'].includes(shape) && (
                 <div className="space-y-3">
-                  <div className="flex justify-between text-[10px] font-bold text-slate-400"><span>Radius R</span><span>{params.radius}</span></div>
-                  <input type="range" min="30" max="120" value={params.radius} onChange={(e) => setParams({...params, radius: +e.target.value})} className="w-full h-1 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500" />
+                  <div className="flex justify-between font-sans-body text-display-sm font-semibold text-swiss-black"><span>Radius R</span><span className="font-mono-math">{params.radius}</span></div>
+                  <input type="range" min="30" max="120" value={params.radius} onChange={(e) => setParams({...params, radius: +e.target.value})} className="w-full" />
                 </div>
               )}
               {shape === 'pythagorean' && (
-                <div className="space-y-4 p-4 bg-slate-950/40 rounded-xl border border-cyan-500/20">
-                  <p className="text-xs text-slate-400 text-center">
-                    ⬆️ Use the interactive sliders in the visualization area above to adjust sides a and b
+                <div className="space-y-4 p-6 bg-swiss-offwhite border-2 border-swiss-black rounded-swiss-sm">
+                  <p className="font-sans-body text-display-sm text-swiss-charcoal text-center">
+                    Use the interactive sliders in the visualization area above to adjust sides a and b
                   </p>
                   <div className="grid grid-cols-2 gap-4 text-center">
                     <div>
-                      <div className="text-2xl font-mono text-cyan-400">{pythagoreanSides.sideA}</div>
-                      <div className="text-[10px] text-slate-500 uppercase">Side a</div>
+                      <div className="font-mono-math text-display-xl text-math-blue">{pythagoreanSides.sideA}</div>
+                      <div className="font-sans-body text-display-sm uppercase text-swiss-black">Side a</div>
                     </div>
                     <div>
-                      <div className="text-2xl font-mono text-green-400">{pythagoreanSides.sideB}</div>
-                      <div className="text-[10px] text-slate-500 uppercase">Side b</div>
+                      <div className="font-mono-math text-display-xl text-math-blue">{pythagoreanSides.sideB}</div>
+                      <div className="font-sans-body text-display-sm uppercase text-swiss-black">Side b</div>
                     </div>
                   </div>
                 </div>
               )}
               {['cylinder', 'cone', 'cube'].includes(shape) && (
                 <div className="space-y-3">
-                  <div className="flex justify-between text-[10px] font-bold text-slate-400"><span>Height H</span><span>{params.height}</span></div>
-                  <input type="range" min="40" max="220" value={params.height} onChange={(e) => setParams({...params, height: +e.target.value})} className="w-full h-1 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-600" />
+                  <div className="flex justify-between font-sans-body text-display-sm font-semibold text-swiss-black"><span>Height H</span><span className="font-mono-math">{params.height}</span></div>
+                  <input type="range" min="40" max="220" value={params.height} onChange={(e) => setParams({...params, height: +e.target.value})} className="w-full" />
                 </div>
               )}
             </div>
           </section>
 
-          <section className="bg-slate-900/40 border border-slate-800 p-8 rounded-[2rem] backdrop-blur-md">
-            <h3 className="flex items-center gap-2 mb-6 text-[10px] font-black uppercase text-indigo-400 tracking-widest">
-              <Calculator size={14} /> {shape === 'pythagorean' ? 'Pythagorean Formula' : 'Mathematical Derivation'}
+          <section className="bg-swiss-white border-2 border-swiss-black p-8 rounded-swiss-sm">
+            <h3 className="flex items-center gap-2 mb-6 font-sans-body text-display-sm font-semibold uppercase text-swiss-black tracking-wider">
+              <Calculator size={14} className="text-swiss-black" /> {shape === 'pythagorean' ? 'Pythagorean Formula' : 'Mathematical Derivation'}
             </h3>
-            <div className="space-y-4 font-serif italic text-center text-slate-300">
-               {shape !== 'pythagorean' && calc.fb && <div className="p-3 bg-blue-900/20 rounded-xl border border-blue-500/20 text-xs text-blue-200 non-italic">{calc.fb}</div>}
-               <div className="p-4 bg-slate-950/40 rounded-xl border border-white/5 text-xl font-bold">{calc.fV}</div>
-               <div className="p-4 bg-slate-950/40 rounded-xl border border-white/5 text-xl font-bold text-blue-300">{calc.fS}</div>
+            <div className="space-y-4 font-serif-display text-center text-swiss-black">
+               {shape !== 'pythagorean' && calc.fb && <div className="p-4 bg-math-blue-light border-2 border-swiss-black font-sans-body text-display-sm text-swiss-black">{calc.fb}</div>}
+               <div className="p-4 bg-swiss-offwhite border-2 border-swiss-black text-display-lg font-semibold">{calc.fV}</div>
+               <div className="p-4 bg-swiss-offwhite border-2 border-swiss-black text-display-lg font-semibold text-math-blue">{calc.fS}</div>
             </div>
-            <div className="mt-6 p-4 bg-slate-950/20 rounded-xl border border-white/5 grid grid-cols-2 gap-4">
-               <div><p className="text-[10px] text-slate-500 uppercase font-sans">{shape === 'pythagorean' ? 'Hypotenuse c' : 'Volume'}</p><p className="text-lg font-mono">{calc.v.toLocaleString(undefined, {maximumFractionDigits:shape === 'pythagorean' ? 2 : 1})}</p></div>
-               <div><p className="text-[10px] text-slate-500 uppercase font-sans">{shape === 'pythagorean' ? 'Sum of Squares' : 'Area'}</p><p className="text-lg font-mono text-cyan-400">{calc.s.toLocaleString(undefined, {maximumFractionDigits:shape === 'pythagorean' ? 2 : 1})}</p></div>
+            <div className="mt-6 p-4 bg-swiss-offwhite border-2 border-swiss-black grid grid-cols-2 gap-4">
+               <div><p className="font-sans-body text-display-sm uppercase font-semibold text-swiss-charcoal">{shape === 'pythagorean' ? 'Hypotenuse c' : 'Volume'}</p><p className="font-mono-math text-display-lg">{calc.v.toLocaleString(undefined, {maximumFractionDigits:shape === 'pythagorean' ? 2 : 1})}</p></div>
+               <div><p className="font-sans-body text-display-sm uppercase font-semibold text-swiss-charcoal">{shape === 'pythagorean' ? 'Sum of Squares' : 'Area'}</p><p className="font-mono-math text-display-lg text-math-blue">{calc.s.toLocaleString(undefined, {maximumFractionDigits:shape === 'pythagorean' ? 2 : 1})}</p></div>
             </div>
           </section>
         </aside>
 
         <section className="lg:col-span-8 flex flex-col gap-6">
-          <div className="flex-1 bg-[#0a0e1a] border border-white/5 rounded-[3rem] relative flex items-center justify-center overflow-hidden shadow-inner group">
-            <div className="absolute inset-0 opacity-[0.03]" style={{backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '40px 40px'}}></div>
+          <div className="flex-1 bg-swiss-white border-2 border-swiss-black rounded-swiss-sm relative flex items-center justify-center overflow-hidden">
+            <div className="absolute inset-0 opacity-[0.05]" style={{backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', backgroundSize: '40px 40px'}}></div>
 
             {/* Conditional rendering: Pythagorean 2D visualization or 3D geometry */}
             {shape === 'pythagorean' ? (
@@ -930,8 +960,8 @@ const GeometryLab = () => {
                 <svg width="100%" height="100%" viewBox="-300 -300 600 600" preserveAspectRatio="xMidYMid meet" className="relative z-10 transition-transform duration-500">
                   <defs>
                     <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
-                      <stop offset="100%" stopColor="#1e40af" stopOpacity="0.2" />
+                      <stop offset="0%" stopColor="#0055FF" stopOpacity="0.8" />
+                      <stop offset="100%" stopColor="#0055FF" stopOpacity="0.2" />
                     </linearGradient>
                   </defs>
                   {/* Render by layers: hidden lines -> filled faces -> visible lines */}
@@ -939,57 +969,57 @@ const GeometryLab = () => {
                   <g>{renderData.renderedFaces}</g>
                   <g>{renderData.renderedVisibleEdges}</g>
                 </svg>
-                <div className="absolute bottom-8 px-5 py-2 bg-slate-900/80 border border-white/5 rounded-full text-[9px] font-black uppercase tracking-[0.2em] text-slate-500 flex items-center gap-2">
-                  <Ruler size={12} className="text-blue-500" /> Analytical "Parsed Surface" Rendering Engine
+                <div className="absolute bottom-8 px-5 py-3 bg-swiss-white border-2 border-swiss-black rounded-swiss-sm font-sans-body text-display-sm font-semibold uppercase tracking-wider text-swiss-black flex items-center gap-2">
+                  <Ruler size={14} className="text-swiss-black" /> Analytical Rendering Engine
                 </div>
               </>
             )}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-slate-900/30 p-8 rounded-[2rem] border border-white/5">
-              <h4 className="flex items-center gap-2 text-[11px] font-bold text-blue-400 uppercase tracking-widest mb-3">
-                <Target size={14} /> Spatial Analytical Features
+            <div className="bg-swiss-white p-8 rounded-swiss-sm border-2 border-swiss-black">
+              <h4 className="flex items-center gap-2 font-sans-body text-display-sm font-semibold text-swiss-black uppercase tracking-wider mb-3">
+                <Target size={14} className="text-swiss-black" /> Spatial Analytical Features
               </h4>
-              <p className="text-xs text-slate-400 leading-relaxed font-light italic">The normal vector-based detection algorithm has been optimized. Solid lines define visible contours, dashed lines reveal internal spatial structure. This "analytical surface" presentation best aligns with engineering mechanics and solid geometry cognitive patterns.</p>
+              <p className="font-sans-body text-display-base text-swiss-charcoal leading-relaxed">The normal vector-based detection algorithm has been optimized. Solid lines define visible contours, dashed lines reveal internal spatial structure. This analytical surface presentation best aligns with engineering mechanics and solid geometry cognitive patterns.</p>
             </div>
-            <div className="bg-slate-900/30 p-8 rounded-[2rem] border border-white/5">
-              <h4 className="flex items-center gap-2 text-[11px] font-bold text-cyan-400 uppercase tracking-widest mb-3">
-                <Globe size={14} /> Model Application Value
+            <div className="bg-swiss-white p-8 rounded-swiss-sm border-2 border-swiss-black">
+              <h4 className="flex items-center gap-2 font-sans-body text-display-sm font-semibold text-swiss-black uppercase tracking-wider mb-3">
+                <Globe size={14} className="text-swiss-black" /> Model Application Value
               </h4>
-              <p className="text-xs text-slate-400 leading-relaxed font-light italic">Precise visible/hidden line separation is fundamental to high-quality math courseware and 3D design software (e.g., AutoCAD), helping learners establish robust spatial coordinate system intuition.</p>
+              <p className="font-sans-body text-display-base text-swiss-charcoal leading-relaxed">Precise visible/hidden line separation is fundamental to high-quality math courseware and 3D design software, helping learners establish robust spatial coordinate system intuition.</p>
             </div>
           </div>
 
           {/* SEO Content Layer - Requirement 1 */}
-          <article className="bg-slate-900/40 border border-slate-800 p-8 rounded-[2rem] backdrop-blur-md">
-            <h2 className="text-2xl font-bold text-white mb-6">{educationalContent.title}</h2>
+          <article className="bg-swiss-white border-2 border-swiss-black p-8 rounded-swiss-sm">
+            <h2 className="font-serif-display text-display-2xl text-swiss-black mb-6">{educationalContent.title}</h2>
 
             <section className="mb-8">
-              <h3 className="text-lg font-semibold text-blue-400 mb-3">What is this shape?</h3>
-              <p className="text-sm text-slate-300 leading-relaxed">{educationalContent.introduction}</p>
+              <h3 className="font-serif-display text-display-lg text-swiss-black mb-3">What is this shape?</h3>
+              <p className="font-sans-body text-display-base text-swiss-charcoal leading-relaxed" dangerouslySetInnerHTML={{ __html: formatEducationalText(educationalContent.introduction, shape) }}></p>
             </section>
 
             <section className="mb-8">
-              <h3 className="text-lg font-semibold text-green-400 mb-3">Volume Formula</h3>
-              <p className="text-sm text-slate-300 leading-relaxed">{educationalContent.formula}</p>
+              <h3 className="font-serif-display text-display-lg text-swiss-black mb-3">Volume Formula</h3>
+              <p className="font-sans-body text-display-base text-swiss-charcoal leading-relaxed" dangerouslySetInnerHTML={{ __html: formatEducationalText(educationalContent.formula, shape) }}></p>
             </section>
 
             <section className="mb-8">
-              <h3 className="text-lg font-semibold text-purple-400 mb-3">Real-World Applications</h3>
-              <p className="text-sm text-slate-300 leading-relaxed">{educationalContent.applications}</p>
+              <h3 className="font-serif-display text-display-lg text-swiss-black mb-3">Real-World Applications</h3>
+              <p className="font-sans-body text-display-base text-swiss-charcoal leading-relaxed" dangerouslySetInnerHTML={{ __html: formatEducationalText(educationalContent.applications, shape) }}></p>
             </section>
 
             <section className="mb-8">
-              <h3 className="text-lg font-semibold text-orange-400 mb-3">Formula Derivation</h3>
-              <p className="text-sm text-slate-300 leading-relaxed">{educationalContent.derivation}</p>
+              <h3 className="font-serif-display text-display-lg text-swiss-black mb-3">Formula Derivation</h3>
+              <p className="font-sans-body text-display-base text-swiss-charcoal leading-relaxed" dangerouslySetInnerHTML={{ __html: formatEducationalText(educationalContent.derivation, shape) }}></p>
             </section>
 
-            <section className="p-6 bg-blue-900/20 rounded-xl border border-blue-500/20">
-              <h3 className="text-lg font-semibold text-blue-300 mb-3">Interactive Exploration</h3>
-              <p className="text-sm text-slate-300 leading-relaxed">
-                Use the controls on the left to adjust parameters and see how the volume changes in real-time.
-                Notice how changing the radius, height, or other dimensions affects the total volume.
+            <section className="p-6 bg-math-blue-light border-2 border-swiss-black rounded-swiss-sm">
+              <h3 className="font-serif-display text-display-lg text-swiss-black mb-3">Interactive Exploration</h3>
+              <p className="font-sans-body text-display-base text-swiss-charcoal leading-relaxed">
+                Use the controls on the left to adjust parameters and see how the <span className="font-bold text-math-blue">volume</span> changes in real-time.
+                Notice how changing the <span className="font-bold text-math-blue">radius</span>, <span className="font-bold text-math-blue">height</span>, or other dimensions affects the total <span className="font-bold text-math-blue">volume</span>.
                 This interactive visualization helps build intuition for geometric relationships.
               </p>
             </section>

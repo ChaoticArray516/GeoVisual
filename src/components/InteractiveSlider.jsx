@@ -12,7 +12,7 @@ import React, { useState, useRef, useEffect } from 'react';
  * @param {string} variableName - Variable name to highlight in formula (e.g., "r")
  * @param {string} unit - Unit to display (e.g., "cm")
  * @param {boolean} showValue - Whether to show current value
- * @param {string} color - Accent color (default: blue)
+ * @param {string} color - Accent color (default: math-blue)
  */
 const InteractiveSlider = ({
   label,
@@ -23,17 +23,14 @@ const InteractiveSlider = ({
   variableName = null,
   unit = '',
   showValue = true,
-  color = 'blue'
+  color = 'math-blue'
 }) => {
   const [isDragging, setIsDragging] = useState(false);
   const sliderRef = useRef(null);
 
   const colorClasses = {
-    blue: 'accent-blue-500',
-    cyan: 'accent-cyan-500',
-    purple: 'accent-purple-500',
-    green: 'accent-green-500',
-    orange: 'accent-orange-500'
+    'math-blue': 'accent-math-blue',
+    'geo-red': 'accent-geo-red'
   };
 
   // Emit highlight event when slider changes
@@ -54,10 +51,10 @@ const InteractiveSlider = ({
 
   return (
     <div className="space-y-3">
-      <div className="flex justify-between items-center text-[10px] font-bold text-slate-400">
+      <div className="flex justify-between items-center font-sans-body text-display-sm font-semibold text-swiss-black">
         <span className="uppercase tracking-wider">{label}</span>
         {showValue && (
-          <span className="text-lg font-mono text-white">
+          <span className="font-mono-math text-display-xl text-swiss-black">
             {value}{unit}
           </span>
         )}
@@ -75,15 +72,12 @@ const InteractiveSlider = ({
           onMouseUp={handleMouseUp}
           onTouchStart={handleMouseDown}
           onTouchEnd={handleMouseUp}
-          className={`w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer
-            ${colorClasses[color]}
-            transition-all duration-200
-            ${isDragging ? 'scale-105' : ''}`}
+          className={`w-full ${colorClasses[color] || colorClasses['math-blue']}`}
         />
 
         {/* Value indicator overlay */}
         <div
-          className="absolute top-0 h-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg pointer-events-none transition-all duration-100"
+          className="absolute top-0 h-0.5 bg-math-blue pointer-events-none transition-all duration-100"
           style={{
             width: `${((value - min) / (max - min)) * 100}%`
           }}
@@ -91,9 +85,9 @@ const InteractiveSlider = ({
       </div>
 
       {/* Interactive hint */}
-      <div className="text-[9px] text-slate-500 italic">
+      <div className="font-sans-body text-display-sm text-swiss-charcoal">
         {isDragging ? (
-          <span className="text-blue-400">✨ Adjusting...</span>
+          <span className="text-math-blue">Adjusting...</span>
         ) : (
           <span>Drag to explore</span>
         )}
@@ -109,7 +103,7 @@ export const SliderGroup = ({ children, label }) => {
   return (
     <div className="space-y-6">
       {label && (
-        <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">
+        <h3 className="font-sans-body text-display-sm font-semibold text-swiss-black uppercase tracking-wider mb-4">
           {label}
         </h3>
       )}

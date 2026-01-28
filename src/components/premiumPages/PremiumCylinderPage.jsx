@@ -34,8 +34,8 @@ const PremiumCylinderPage = ({ params, onParamsChange }) => {
   return (
     <div className="space-y-8">
       {/* Discovery Zone 1: Unrolling the Cylinder */}
-      <DiscoveryZone title="Explore: What Happens When We Unroll a Cylinder?" icon="📜" variant="primary">
-        <p className="text-slate-300 leading-relaxed mb-6">
+      <DiscoveryZone title="Explore: What Happens When We Unroll a Cylinder?" variant="primary">
+        <p className="font-sans-body text-display-base text-swiss-charcoal leading-relaxed mb-6">
           Imagine peeling off the curved surface of a cylinder and flattening it out.
           What shape do you get? A rectangle! This reveals why the surface area formula works.
         </p>
@@ -52,7 +52,7 @@ const PremiumCylinderPage = ({ params, onParamsChange }) => {
             max={100}
             variableName="r"
             unit=" units"
-            color="blue"
+            color="math-blue"
           />
           <InteractiveSlider
             label="Height (h)"
@@ -65,7 +65,7 @@ const PremiumCylinderPage = ({ params, onParamsChange }) => {
             max={200}
             variableName="h"
             unit=" units"
-            color="cyan"
+            color="math-blue"
           />
         </div>
 
@@ -95,41 +95,40 @@ const PremiumCylinderPage = ({ params, onParamsChange }) => {
 
         <DiscoveryInsight
           triggerCondition={() => params.height > params.radius * 3}
-          message="🎯 Insight: When you unroll the curved surface, you get a rectangle! Height = cylinder height, Width = circumference of circle (2πr). Area = h × 2πr = 2πrh"
-          icon="📐"
+          message="Insight: When you unroll the curved surface, you get a rectangle! Height = cylinder height, Width = circumference of circle (2πr). Area = h × 2πr = 2πrh"
           type="discovery"
         />
       </DiscoveryZone>
 
       {/* Discovery Zone 2: Three Shapes Comparison */}
-      <DiscoveryZone title="🏺 Volume Comparison: Cylinder vs Sphere vs Cone" icon="⚖️" variant="tertiary">
-        <p className="text-slate-300 leading-relaxed mb-6">
+      <DiscoveryZone title="Volume Comparison: Cylinder vs Sphere vs Cone" variant="tertiary">
+        <p className="font-sans-body text-display-base text-swiss-charcoal leading-relaxed mb-6">
           All three shapes can have the same radius and height. But their volumes are dramatically different!
         </p>
 
         <ComparisonView
           items={[
             {
-              title: '🥫 Cylinder',
+              title: 'Cylinder',
               value: volume.toFixed(2),
               description: 'V = πr²h (baseline)',
             },
             {
-              title: '⚽ Sphere',
+              title: 'Sphere',
               value: sphereVolume.toFixed(2),
               description: `V = (4/3)πr³ = ${(sphereVolume / volume * 100).toFixed(1)}% of cylinder`,
             },
             {
-              title: '🍦 Cone',
+              title: 'Cone',
               value: coneVolume.toFixed(2),
               description: `V = (1/3)πr²h = ${(coneVolume / volume * 100).toFixed(1)}% of cylinder`,
             },
           ]}
         />
 
-        <div className="mt-6 p-6 bg-purple-900/20 rounded-xl border border-purple-500/20">
-          <h4 className="text-base font-semibold text-purple-300 mb-3">💡 Key Insight</h4>
-          <p className="text-sm text-slate-300 leading-relaxed">
+        <div className="mt-6 p-6 bg-math-blue-light rounded-swiss-sm border-2 border-swiss-black">
+          <h4 className="font-sans-body text-display-base font-semibold text-swiss-black mb-3">Key Insight</h4>
+          <p className="font-sans-body text-display-base text-swiss-charcoal leading-relaxed">
             With the same radius and height, a sphere holds <strong>2/3</strong> of the cylinder's volume,
             while a cone holds only <strong>1/3</strong>. This is why cones are used for holding things
             (like ice cream) - you get less for the same base area!
@@ -138,64 +137,62 @@ const PremiumCylinderPage = ({ params, onParamsChange }) => {
 
         <DiscoveryInsight
           triggerCondition={() => params.radius > 80 && params.height < 100}
-          message="🔍 Discovery: Short, wide cylinders have much more volume than tall, narrow ones with the same radius. The radius is squared (r²), so small changes in radius create huge changes in volume!"
-          icon="📏"
+          message="Discovery: Short, wide cylinders have much more volume than tall, narrow ones with the same radius. The radius is squared (r²), so small changes in radius create huge changes in volume!"
           type="tip"
         />
       </DiscoveryZone>
 
       {/* Discovery Zone 3: Soda Can Optimization */}
-      <DiscoveryZone title="🥫 Real-World Puzzle: Soda Can Optimization" icon="🧮" variant="secondary">
-        <p className="text-slate-300 leading-relaxed mb-6">
+      <DiscoveryZone title="Real-World Puzzle: Soda Can Optimization" variant="secondary">
+        <p className="font-sans-body text-display-base text-swiss-charcoal leading-relaxed mb-6">
           If you need to hold 330ml of soda, what radius and height minimizes the aluminum needed?
           This is a real optimization problem solved by beverage companies!
         </p>
 
-        <div className="p-6 bg-orange-900/20 rounded-xl border border-orange-500/20 mb-6">
-          <h4 className="text-base font-semibold text-orange-300 mb-4">🥤 Current Volume</h4>
-          <div className="text-4xl font-mono text-white mb-2">
+        <div className="p-6 bg-math-blue-light rounded-swiss-sm border-2 border-swiss-black mb-6">
+          <h4 className="font-sans-body text-display-base font-semibold text-swiss-black mb-4">Current Volume</h4>
+          <div className="font-mono-math text-display-4xl text-swiss-black mb-2">
             {volume.toFixed(2)} cubic units
           </div>
-          <p className="text-sm text-slate-400">
-            Target: 330ml (typical soda can). {volume > 300 && volume < 360 ? '✅ Close to optimal!' : 'Adjust to get closer to 330ml'}
+          <p className="font-sans-body text-display-base text-swiss-charcoal">
+            Target: 330ml (typical soda can). {volume > 300 && volume < 360 ? 'Close to optimal!' : 'Adjust to get closer to 330ml'}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="p-4 bg-slate-950/40 rounded-xl border border-white/10">
-            <h4 className="text-sm font-semibold text-blue-300 mb-2">Surface Area</h4>
-            <div className="text-2xl font-mono text-white">{surfaceArea.toFixed(2)} units²</div>
-            <div className="text-xs text-slate-400 mt-2">Aluminum needed</div>
+          <div className="p-4 bg-swiss-offwhite rounded-swiss-sm border-2 border-swiss-black">
+            <h4 className="font-sans-body text-display-sm font-semibold text-swiss-black mb-2">Surface Area</h4>
+            <div className="font-mono-math text-display-2xl text-swiss-black">{surfaceArea.toFixed(2)} units²</div>
+            <div className="font-sans-body text-display-sm text-swiss-charcoal mt-2">Aluminum needed</div>
           </div>
 
-          <div className="p-4 bg-slate-950/40 rounded-xl border border-white/10">
-            <h4 className="text-sm font-semibold text-green-300 mb-2">Surface-to-Volume Ratio</h4>
-            <div className="text-2xl font-mono text-white">{(surfaceArea / volume).toFixed(3)}</div>
-            <div className="text-xs text-slate-400 mt-2">Lower = more efficient</div>
+          <div className="p-4 bg-swiss-offwhite rounded-swiss-sm border-2 border-swiss-black">
+            <h4 className="font-sans-body text-display-sm font-semibold text-swiss-black mb-2">Surface-to-Volume Ratio</h4>
+            <div className="font-mono-math text-display-2xl text-swiss-black">{(surfaceArea / volume).toFixed(3)}</div>
+            <div className="font-sans-body text-display-sm text-swiss-charcoal mt-2">Lower = more efficient</div>
           </div>
         </div>
 
         <DiscoveryInsight
           triggerCondition={() => Math.abs(volume - 330) < 30}
-          message="🏆 Great! You're close to the optimal soda can size. Real soda cans are designed with h ≈ 2r to minimize aluminum while holding 330ml. Current best ratio: height = 2×radius!"
-          icon="🥤"
+          message="Great! You're close to the optimal soda can size. Real soda cans are designed with h ≈ 2r to minimize aluminum while holding 330ml. Current best ratio: height = 2×radius!"
           type="discovery"
         />
       </DiscoveryZone>
 
       {/* Discovery Zone 4: Pipe Flow Applications */}
-      <DiscoveryZone title="🚰 Pipe Flow: Cross-Section Matters" icon="💧" variant="primary">
-        <p className="text-slate-300 leading-relaxed mb-6">
+      <DiscoveryZone title="Pipe Flow: Cross-Section Matters" variant="primary">
+        <p className="font-sans-body text-display-base text-swiss-charcoal leading-relaxed mb-6">
           Cylinders are everywhere as pipes! The amount of water that can flow through a pipe
           depends on its cross-sectional area (πr²), not the length.
         </p>
 
-        <div className="p-6 bg-cyan-900/20 rounded-xl border border-cyan-500/20 mb-6">
-          <h4 className="text-base font-semibold text-cyan-300 mb-3">💧 Cross-Sectional Area</h4>
-          <div className="text-4xl font-mono text-white mb-2">
+        <div className="p-6 bg-math-blue-light rounded-swiss-sm border-2 border-swiss-black mb-6">
+          <h4 className="font-sans-body text-display-base font-semibold text-swiss-black mb-3">Cross-Sectional Area</h4>
+          <div className="font-mono-math text-display-4xl text-swiss-black mb-2">
             {(Math.PI * params.radius * params.radius).toFixed(2)} units²
           </div>
-          <p className="text-sm text-slate-400">
+          <p className="font-sans-body text-display-base text-swiss-charcoal">
             This is the "opening" through which water flows. Double the radius = 4× the flow!
           </p>
         </div>
@@ -217,45 +214,44 @@ const PremiumCylinderPage = ({ params, onParamsChange }) => {
 
         <DiscoveryInsight
           triggerCondition={() => params.radius > 90}
-          message="🌊 Amazing! A pipe with twice the radius can carry 4 times as much water! This is because area scales with r². Small increases in pipe diameter create huge increases in flow capacity."
-          icon="🌊"
+          message="Amazing! A pipe with twice the radius can carry 4 times as much water! This is because area scales with r². Small increases in pipe diameter create huge increases in flow capacity."
           type="discovery"
         />
       </DiscoveryZone>
 
       {/* Deep Dive: Historical Context */}
-      <DiscoveryZone title="📚 The History of Cylinders" icon="🏛️" variant="secondary">
+      <DiscoveryZone title="The History of Cylinders" variant="secondary">
         <details className="group">
-          <summary className="cursor-pointer p-4 bg-slate-950/40 rounded-xl hover:bg-slate-950/60 transition-colors">
-            <span className="text-lg font-semibold text-blue-300">
+          <summary className="cursor-pointer p-4 bg-swiss-offwhite rounded-swiss-sm border-2 border-swiss-black hover:bg-swiss-white transition-colors">
+            <span className="font-serif-display text-display-lg text-swiss-black">
               Discover how ancient civilizations used cylinders
             </span>
           </summary>
-          <div className="mt-4 p-6 bg-slate-900/40 rounded-xl space-y-4">
-            <p className="text-sm text-slate-300 leading-relaxed">
+          <div className="mt-4 p-6 bg-swiss-white rounded-swiss-sm border-2 border-swiss-black space-y-4">
+            <p className="font-sans-body text-display-base text-swiss-charcoal leading-relaxed">
               Cylinders are one of the oldest and most useful shapes invented by humans.
               Ancient Mesopotamians used cylinder seals for writing as early as 3500 BCE!
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="p-4 bg-blue-900/20 rounded-lg">
-                <h5 className="text-sm font-bold text-blue-300 mb-2">🏛️ Architecture</h5>
-                <p className="text-xs text-slate-300">
+              <div className="p-4 bg-swiss-offwhite rounded-swiss-sm border-2 border-swiss-black">
+                <h5 className="font-sans-body text-display-sm font-semibold text-swiss-black mb-2">Architecture</h5>
+                <p className="font-sans-body text-display-base text-swiss-charcoal">
                   Classical columns in Greek and Roman temples are cylinders. The fluting (vertical grooves) isn't just decorative - it reduces weight while maintaining strength!
                 </p>
               </div>
 
-              <div className="p-4 bg-purple-900/20 rounded-lg">
-                <h5 className="text-sm font-bold text-purple-300 mb-2">⚙️ Engineering</h5>
-                <p className="text-xs text-slate-300">
+              <div className="p-4 bg-swiss-offwhite rounded-swiss-sm border-2 border-swiss-black">
+                <h5 className="font-sans-body text-display-sm font-semibold text-swiss-black mb-2">Engineering</h5>
+                <p className="font-sans-body text-display-base text-swiss-charcoal">
                   Engine cylinders, hydraulic systems, and pressure vessels all use cylindrical shapes. They're perfect for containing pressure and linear motion.
                 </p>
               </div>
             </div>
 
-            <div className="mt-4 p-4 bg-green-900/20 rounded-lg border border-green-500/20">
-              <h5 className="text-sm font-bold text-green-300 mb-2">🧮 Try This Experiment</h5>
-              <p className="text-xs text-slate-300">
+            <div className="mt-4 p-4 bg-math-blue-light rounded-swiss-sm border-2 border-swiss-black">
+              <h5 className="font-sans-body text-display-sm font-semibold text-swiss-black mb-2">Try This Experiment</h5>
+              <p className="font-sans-body text-display-base text-swiss-charcoal">
                 Roll a piece of paper into a cylinder. Notice how the height and circumference relate? Try calculating: if you know the height and radius, can you predict the paper's area? (Hint: A = 2πrh + 2πr²)
               </p>
             </div>
