@@ -9,26 +9,136 @@
     <meta name="google" content="notranslate" />
 
     <!-- Primary Meta Tags -->
-    <meta name="description" content="Interactive Geometry Dictionary - The complete reference for exploring geometric shapes, formulas, and mathematical proofs through interactive 3D visualizations. Learn sphere, cone, cylinder, cube, and Pythagorean theorem with real-time calculations." />
-    <meta name="keywords" content="interactive geometry dictionary, geometry encyclopedia, 3D geometry visualization, volume formulas, surface area calculator, Pythagorean theorem, interactive math, geometry education, sphere volume, cone volume, cylinder volume" />
+    <meta name="description" content="Calculate sphere, cone, cylinder, and cube volume instantly with our interactive 3D visualizer. Learn formulas, see step-by-step solutions, and explore geometric properties. Free online geometry calculator and math solver." />
+    <meta name="keywords" content="sphere volume calculator, cone volume calculator, cylinder volume calculator, cube volume calculator, 3D geometry visualizer, interactive geometry, volume formulas, surface area calculator, Pythagorean theorem calculator, math solver, geometry education, step-by-step calculator, interactive math tools, geometric visualization, geometry solver, 3D shape calculator" />
 
     <!-- Open Graph / Social Media -->
-    <meta property="og:title" content="GeoVisual - Interactive Geometry Dictionary" />
-    <meta property="og:description" content="The complete interactive geometry reference. Explore shapes, formulas, and proofs through 3D visualizations with real-time calculations." />
+    <meta property="og:title" content="Interactive 3D Geometry Calculator & Visualizer | GeoVisual" />
+    <meta property="og:description" content="Calculate sphere, cone, cylinder, and cube volume instantly with our interactive 3D visualizer. Learn formulas, see step-by-step solutions, and explore geometric properties. Free online geometry calculator." />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/og-image.png" />
     <meta property="og:url" content="https://geovisual.com" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="GeoVisual - Interactive Geometry Dictionary" />
-    <meta name="twitter:description" content="Interactive geometry encyclopedia with 3D visualizations and real-time formula calculations" />
+    <meta name="twitter:title" content="Interactive 3D Geometry Calculator & Visualizer | GeoVisual" />
+    <meta name="twitter:description" content="Calculate sphere, cone, cylinder, and cube volume instantly with our interactive 3D visualizer. Free online geometry calculator." />
     <meta name="twitter:image" content="/og-image.png" />
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://geovisual.com" />
 
-    <title>GeoVisual - Interactive Geometry Dictionary</title>
+    <!-- JSON-LD Structured Data - WebApplication -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "GeoVisual",
+      "url": "https://www.geovisual.org",
+      "description": "Interactive 3D geometry calculator and visualizer. Calculate volume and surface area for spheres, cones, cylinders, cubes with real-time 3D rendering.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript. Recommended: Chrome, Firefox, Safari, Edge",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Interactive 3D sphere volume calculator",
+        "Interactive 3D cone volume calculator",
+        "Interactive 3D cylinder volume calculator",
+        "Interactive 3D cube volume calculator",
+        "Pythagorean theorem visual proof",
+        "Step-by-step formula derivations",
+        "Real-time parameter adjustment",
+        "Mathematical property exploration"
+      ],
+      "educationalLevel": "Middle School, High School, College",
+      "teaches": [
+        "Geometry",
+        "3D Shapes",
+        "Volume Calculation",
+        "Surface Area Calculation",
+        "Pythagorean Theorem",
+        "Mathematical Formulas"
+      ],
+      "learningResourceType": "Interactive Tool",
+      "educationalUse": "Homework Helper, Concept Exploration, Problem Solving"
+    }
+    </script>
+
+    <!-- JSON-LD Structured Data - MathSolver for Sphere -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MathSolver",
+      "name": "Sphere Volume Calculator",
+      "url": "https://www.geovisual.org/#sphere",
+      "potentialAction": {
+        "@type": "SolveMathAction",
+        "target": "https://www.geovisual.org/sphere?radius={radius_value}",
+        "eduQuestionType": "Volume calculation",
+        "input": {
+          "@type": "PropertyValueSpecification",
+          "propertyID": "radius",
+          "valueRequired": "Yes",
+          "valueName": "Radius"
+        }
+      },
+      "assesses": "Volume of a sphere"
+    }
+    </script>
+
+    <!-- JSON-LD Structured Data - MathSolver for Cylinder -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MathSolver",
+      "name": "Cylinder Volume Calculator",
+      "url": "https://www.geovisual.org/#cylinder",
+      "potentialAction": {
+        "@type": "SolveMathAction",
+        "target": "https://www.geovisual.org/cylinder?radius={radius}&height={height}",
+        "eduQuestionType": "Volume and surface area calculation"
+      },
+      "assesses": "Volume and surface area of a cylinder"
+    }
+    </script>
+
+    <!-- JSON-LD Structured Data - MathSolver for Cone -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MathSolver",
+      "name": "Cone Volume Calculator",
+      "url": "https://www.geovisual.org/#cone",
+      "potentialAction": {
+        "@type": "SolveMathAction",
+        "target": "https://www.geovisual.org/cone?radius={radius}&height={height}",
+        "eduQuestionType": "Volume and surface area calculation"
+      },
+      "assesses": "Volume and surface area of a cone"
+    }
+    </script>
+
+    <!-- JSON-LD Structured Data - MathSolver for Pythagorean Theorem -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MathSolver",
+      "name": "Pythagorean Theorem Calculator",
+      "url": "https://www.geovisual.org/#pythagorean",
+      "potentialAction": {
+        "@type": "SolveMathAction",
+        "target": "https://www.geovisual.org/pythagorean?sideA={sideA}&sideB={sideB}",
+        "eduQuestionType": "Pythagorean theorem calculation"
+      },
+      "assesses": "Pythagorean theorem: a² + b² = c²"
+    }
+    </script>
+
+    <title>Interactive 3D Geometry Calculator & Visualizer | GeoVisual</title>
   </head>
   <body>
     <div id="root" translate="no"></div>
