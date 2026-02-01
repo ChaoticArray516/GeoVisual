@@ -191,35 +191,131 @@ geovisual/
 ### 3D Projection Engine
 
 ```javascript
-project(x, y, z) {
-  // Rotate around Y-axis (azimuth)
-  // Rotate around X-axis (elevation)
-  // Return { x, y, z } screen coordinates with depth
+const Engine = {
+  ROTATION: { x: -25, y: -35 }, // Optimized fixed viewing angle
+
+  // 3D projection: map spatial points to screen coordinates
+  project(x, y, z) {
+    const radX = (this.ROTATION.x * Math.PI) / 180;
+    const radY = (this.ROTATION.y * Math.PI) / 180;
+
+    // Rotate around Y-axis (horizontal rotation)
+    let nx = x * Math.cos(radY) + z * Math.sin(radY);
+    let nz = -x * Math.sin(radY) + z * Math.cos(radY);
+
+    // Rotate around X-axis (pitch rotation)
+    let ny = y * Math.cos(radX) - nz * Math.sin(radX);
+    let fz = y * Math.sin(radX) + nz * Math.cos(radX); // Projected depth Z
+
+    return { x: nx, y: ny, z: fz };
+  }
 }
 ```
 
 ### Face Visibility Detection
 
 ```javascript
+// Determine if face is front-facing (based on screen space cross product)
 isFrontFacing(p1, p2, p3) {
-  // Cross product in screen space
-  // Clockwise + nz < 0 → front face
+  // In SVG coordinate system (Y-axis down), clockwise points with nz < 0 indicate front face
+  const v1 = { x: p2.x - p1.x, y: p2.y - p1.y };
+  const v2 = { x: p3.x - p1.x, y: p3.y - p1.y };
+  const nz = v1.x * v2.y - v1.y * v2.x;
+  return nz < 0; // Front face if normal points toward viewer
 }
 ```
 
 ### Smart Edge Rendering
 
 ```javascript
-// Edge is visible if it belongs to ≥1 front-facing face
-// Solid lines for visible edges
-// Dashed lines for hidden edges
+// Edge processing: logic is "visible edge = edge belonging to at least one front-facing face"
+const edgeMap = new Map();
+
+processedFaces.forEach(face => {
+  const n = face.idxSet.length;
+  for (let i = 0; i < n; i++) {
+    const v1 = face.idxSet[i], v2 = face.idxSet[(i + 1) % n];
+    const key = [v1, v2].sort().join('-');
+    const existing = edgeMap.get(key) || { isVisible: false };
+    if (face.isFront) existing.isVisible = true;
+    edgeMap.set(key, existing);
+  }
+});
+
+// Render visible edges as solid lines, hidden edges as dashed lines
+Array.from(edgeMap.values()).forEach((edge, i) => {
+  const line = (
+    <line
+      key={`e-${i}`}
+      x1={edge.p1.x} y1={edge.p1.y}
+      x2={edge.p2.x} y2={edge.p2.y}
+      stroke={edge.isVisible ? "#3b82f6" : "#3b82f6"}
+      strokeWidth={edge.isVisible ? 2.5 : 1}
+      strokeDasharray={edge.isVisible ? "0" : "5,5"}
+      opacity={edge.isVisible ? 1 : 0.3}
+    />
+  );
+});
 ```
 
 ### Painter's Algorithm
 
 ```javascript
-// Sort faces by average depth (z-value)
-// Render from back to front
+// 1. Face processing and depth sorting (Painter's Algorithm)
+const processedFaces = faces.map((idxSet, i) => {
+  const pts = idxSet.map(idx => projectedPts[idx]);
+  const isFront = Engine.isFrontFacing(pts[0], pts[1], pts[2]);
+  const avgZ = pts.reduce((s, p) => s + p.z, 0) / pts.length;
+  return { idxSet, isFront, avgZ, id: i };
+}).sort((a, b) => b.avgZ - a.avgZ); // Sort by depth (back to front)
+
+// 2. Render faces from back to front
+processedFaces.forEach((f) => {
+  const pathData = f.idxSet.map((idx, j) =>
+    `${j === 0 ? 'M' : 'L'} ${projectedPts[idx].x} ${projectedPts[idx].y}`
+  ).join(' ') + ' Z';
+
+  return <path
+    key={`f-${f.id}`}
+    d={pathData}
+    fill="url(#grad)"
+    fillOpacity={f.isFront ? 0.3 : 0.05}
+  />;
+});
+```
+
+### Shape Generation
+
+```javascript
+const ShapeGenerator = {
+  generateSphere(radius) {
+    const latS = 10, lonS = 16;
+    const vertices = [], faces = [];
+
+    for (let i = 0; i <= latS; i++) {
+      const lat = (i * Math.PI) / latS - Math.PI / 2;
+      const y = radius * Math.sin(lat), r = radius * Math.cos(lat);
+      vertices.push(...this.getCircle(r, y, lonS));
+    }
+
+    for (let i = 0; i < latS; i++) {
+      for (let j = 0; j < lonS; j++) {
+        const c = i*lonS+j, n = i*lonS+(j+1)%lonS;
+        const bc = (i+1)*lonS+j, bn = (i+1)*lonS+(j+1)%lonS;
+        faces.push([c, n, bn, bc]);
+      }
+    }
+
+    return { vertices, faces };
+  },
+
+  getCircle(r, y, segments = 64) {
+    return Array.from({ length: segments }).map((_, i) => {
+      const ang = (i * 2 * Math.PI) / segments;
+      return { x: r * Math.cos(ang), y: y, z: r * Math.sin(ang) };
+    });
+  }
+}
 ```
 
 ## Geometric Formulas & Calculators
