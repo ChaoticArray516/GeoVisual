@@ -150,48 +150,61 @@ const GeometryLab = () => {
   useEffect(() => {
     const metadata = {
       cylinder: {
-        title: "Cylinder Volume Calculator & Surface Area | Interactive 3D Tools | GeoVisual",
-        description: "Interactive cylinder volume calculator. Adjust radius and height in real-time. Learn V = πr²h formula with visual proofs and step-by-step solutions.",
+        // Old: "Cylinder Volume Calculator & Geometry Formulas | Interactive 3D Tools | GeoVisual"
+        title: "Volume of a Cylinder Calculator | Interactive 3D Tools | GeoVisual",
+        // Old: "Interactive cylinder volume calculator. Calculate volume of a cylinder instantly with radius and height adjustment. Learn cylinder volume formula V = πr²h with visual proofs and step-by-step solutions."
+        description: "Calculate volume of a cylinder instantly with radius and height adjustment. Learn cylinder volume formula V = πr²h with visual proofs and step-by-step solutions. Free 3D calculator.",
         ogImage: "/og-cylinder.png"
       },
       frustum: {
-        title: "Frustum Volume Calculator | Interactive 3D Geometry | GeoVisual",
-        description: "Calculate frustum volume interactively. Adjust top/bottom radius and height. Understand V = (1/3)πh(r₁²+r₂²+r₁r₂) formula.",
+        title: "Frustum Volume Calculator | Geometry Formulas Reference | GeoVisual",
+        // Old: "Calculate frustum volume with interactive geometry formula sheet. Understand general geometry formulas and equations for geometry. Volume formula V = (1/3)πh(r₁²+r₂²+r₁r₂) explained."
+        description: "Calculate frustum volume with interactive tools. Learn frustum volume formula V = (1/3)πh(r₁²+r₂²+r₁r₂) with step-by-step solutions. Free 3D calculator.",
         ogImage: "/og-frustum.png"
       },
       cone: {
-        title: "Cone Volume Calculator & Surface Area | Interactive 3D Visualizer | GeoVisual",
-        description: "Explore cone volume formula with interactive 3D model. Adjust height and radius to see real-time calculations. Learn derivation of V = (1/3)πr²h.",
+        // Old: "Cone Volume Calculator & Geometry Formulas | Interactive 3D Visualizer | GeoVisual"
+        title: "Cone Geometry Formulas & Volume Calculator | Interactive 3D Visualizer | GeoVisual",
+        // Old: "Interactive cone calculator with cone geometry formulas. Access area formulas for all shapes. Learn cone volume formula V = (1/3)πr²h and surface area with slant height. Interactive 3D model."
+        description: "Interactive cone calculator with geometry formulas. Learn cone volume V = (1/3)πr²h and surface area with slant height. Adjust radius and height in real-time. Free 3D visualizer.",
         ogImage: "/og-cone.png"
       },
       cube: {
-        title: "Cube & Cuboid Volume Calculator | Interactive 3D Tools | GeoVisual",
-        description: "Interactive cuboid volume calculator. Adjust length, width, height in real-time. Learn V = l·w·h formula with visual demonstrations.",
+        // Old: "Cube Volume Calculator & Geometry Formulas | Cuboid Volume Formula | GeoVisual"
+        title: "Volume of a Cube Calculator | Interactive 3D Visualizer | GeoVisual",
+        // Old: "Interactive cube volume calculator. Calculate volume of a cube instantly with length, width, height adjustment. Learn cuboid volume formula V = l·w·h with visual demonstrations."
+        description: "Calculate volume of a cube instantly with length, width, height adjustment. Learn cuboid volume formula V = l·w·h with visual demonstrations. Interactive 3D geometry calculator.",
         ogImage: "/og-cube.png"
       },
       pent_prism: {
-        title: "Pentagonal Prism Volume Calculator | Interactive Geometry Tools | GeoVisual",
-        description: "Calculate pentagonal prism volume interactively. Visualize 5-sided prism with real-time measurements.",
+        title: "Pentagonal Prism Volume Calculator | Geometry Formulas Guide | GeoVisual",
+        // Old: "Calculate pentagonal prism volume with general geometry formulas. Interactive geometry formula sheet with area formulas for all shapes and real-time measurements."
+        description: "Calculate pentagonal prism volume with interactive tools. Learn volume formulas and area calculations with real-time 3D measurements. Free calculator.",
         ogImage: "/og-pentagonal.png"
       },
       pyramid: {
-        title: "Square Pyramid Volume Calculator | Interactive 3D Geometry | GeoVisual",
-        description: "Interactive pyramid volume calculator. Adjust base and height. Learn V = (1/3)a²h formula with 3D model.",
+        title: "Square Pyramid Volume Calculator | Geometry Formula Sheet | GeoVisual",
+        // Old: "Interactive pyramid volume calculator with basic geometry formulas. Access area formulas for all shapes. Learn pyramid volume formula V = (1/3)a²h with 3D model."
+        description: "Calculate pyramid volume with interactive tools. Learn pyramid volume formula V = (1/3)a²h and surface area with 3D model. Free geometry calculator.",
         ogImage: "/og-pyramid.png"
       },
       tri_pyramid: {
-        title: "Triangular Pyramid Volume Calculator | Tetrahedron Calculator | GeoVisual",
-        description: "Calculate triangular pyramid (tetrahedron) volume. Interactive 3D visualization with formula explanations.",
+        title: "Triangular Pyramid Volume Calculator | Geometry Formulas Reference | GeoVisual",
+        // Old: "Calculate triangular pyramid volume with complete geometry formula sheet. Interactive equations for geometry and area formulas for all shapes. Tetrahedron volume explained."
+        description: "Calculate triangular pyramid volume with interactive tools. Learn tetrahedron volume formulas and surface area with 3D model. Free calculator.",
         ogImage: "/og-tri-pyramid.png"
       },
       sphere: {
-        title: "Sphere Volume Calculator & Formula | Interactive 3D Visualizer | GeoVisual",
-        description: "Interactive 3D sphere visualization. Calculate volume with real-time radius adjustment. Learn the V = (4/3)πr³ formula with interactive demonstrations.",
+        title: "Volume of Sphere Formula | Geometry Formulas | GeoVisual",
+        // Old: "Interactive sphere volume calculator with geometry formula sheet. Learn volume of sphere formula V = (4/3)πr³ and area formulas for all shapes. Access basic geometry formulas with interactive 3D demonstrations."
+        description: "Interactive sphere volume calculator. Learn volume of sphere formula V = (4/3)πr³ and surface area. Adjust radius in real-time with 3D demonstrations. Free geometry tools.",
         ogImage: "/og-sphere.png"
       },
       pythagorean: {
-        title: "Pythagorean Theorem Calculator & Visual Proof | Interactive Solver | GeoVisual",
-        description: "Interactive Pythagorean theorem visual proof. Adjust triangle sides to see a² + b² = c² in action. Discover famous triples and geometric relationships.",
+        // Old: "Pythagorean Theorem Calculator & Visual Proof | Geometry Formulas | GeoVisual"
+        title: "What is the Pythagorean Theorem? Calculator & Visual Proof | GeoVisual",
+        // Old: "Interactive calculator answering what is the Pythagorean theorem. Learn Pythagorean theorem formula a² + b² = c² with visual proof. Access geometry formulas and famous Pythagorean triples."
+        description: "Interactive calculator: what is the Pythagorean theorem? Learn a² + b² = c² with visual proof. Explore famous Pythagorean triples and real-world applications. Free 3D math tools.",
         ogImage: "/og-pythagorean.png"
       }
     };
@@ -758,37 +771,37 @@ const GeometryLab = () => {
   const educationalContent = useMemo(() => {
     const content = {
       cylinder: {
-        title: "Cylinder Volume Calculator & Interactive 3D Tools",
-        introduction: "A cylinder is a three-dimensional solid with two parallel circular bases connected by a curved surface. It's one of the most common shapes in engineering and everyday objects, from soda cans to pipes. Use our interactive calculator to compute volume and surface area instantly.",
-        formula: "The volume of a cylinder is calculated using the formula V = πr²h, where r is the radius of the circular base and h is the height. This formula comes from multiplying the area of the circular base (πr²) by the height.",
+        title: "Cylinder Volume Calculator & Surface Area Formula",
+        introduction: "A cylinder is a three-dimensional solid with two parallel circular bases connected by a curved surface. Calculate cylinder volume instantly with our interactive tool using radius and height parameters.",
+        formula: "The volume of a cylinder is calculated using V = πr²h, where r is the radius and h is the height. This formula is essential for engineering and construction applications.",
         applications: "Cylinders are everywhere: engines, pipes, drums, water tanks, and more. Understanding cylinder volume helps in engineering design, manufacturing, and construction.",
         derivation: "The formula derivation: Start with a circle of area πr². Stack identical circles from height 0 to h. The total volume is the base area multiplied by height."
       },
       sphere: {
-        title: "Sphere Volume Calculator & Interactive 3D Visualizer",
-        introduction: "A sphere is a perfectly round three-dimensional object where every point on its surface is equidistant from its center. Spheres appear throughout nature and mathematics, from planets to bubbles. Calculate sphere volume instantly with our interactive tool.",
-        formula: "The volume of a sphere is V = (4/3)πr³, where r is the radius. This elegant formula was discovered by Archimedes over 2,000 years ago.",
+        title: "Sphere Volume Calculator & Surface Area Formula",
+        introduction: "A sphere is a perfectly round three-dimensional object where every point on its surface is equidistant from its center. Calculate sphere volume instantly with our interactive tool.",
+        formula: "The volume of a sphere uses V = (4/3)πr³, where r is the radius. This formula was discovered by Archimedes over 2,000 years ago.",
         applications: "Spherical shapes minimize surface area for a given volume, which is why planets and bubbles form spheres. Understanding sphere volume is crucial in physics, astronomy, and engineering.",
         derivation: "Archimedes discovered that a sphere's volume is exactly 2/3 of its surrounding cylinder. This insight led to the formula V = (4/3)πr³."
       },
       cone: {
         title: "Cone Volume Calculator & Surface Area Formula",
-        introduction: "A cone is a three-dimensional shape with a circular base that tapers to a single point called the apex. From ice cream cones to traffic cones, this shape is ubiquitous. Use our interactive calculator to explore cone volume.",
-        formula: "The volume of a cone is V = (1/3)πr²h, where r is the base radius and h is the height. The factor of 1/3 means a cone holds exactly one-third the volume of a cylinder with the same base and height.",
+        introduction: "A cone is a three-dimensional shape with a circular base that tapers to a single point called the apex. Explore cone volume and surface area with our interactive calculator.",
+        formula: "The volume of a cone uses V = (1/3)πr²h, where r is the base radius and h is the height. The 1/3 factor means a cone holds exactly one-third the volume of a cylinder with the same base and height.",
         applications: "Cones are used in architecture, design, and manufacturing. The cone shape helps objects like funnels and speakers direct flow efficiently.",
         derivation: "The 1/3 factor can be proven using calculus or by comparing with a cylinder. Three cones of the same base and height can exactly fill one cylinder."
       },
       cube: {
-        title: "Cube & Cuboid Volume Calculator",
-        introduction: "A cuboid (rectangular prism) is a three-dimensional shape with six rectangular faces. It's the most common box shape, used in packaging, construction, and storage. Calculate volume instantly with our interactive calculator.",
-        formula: "The volume formula V = l·w·h multiplies length, width, and height. This simple formula applies to all rectangular boxes, making it fundamental to geometry and engineering.",
+        title: "Cube Volume Calculator & Surface Area Formula",
+        introduction: "A cuboid (rectangular prism) is a three-dimensional shape with six rectangular faces. Calculate cube volume instantly with our interactive calculator using length, width, and height.",
+        formula: "The volume formula V = l·w·h multiplies length, width, and height. This simple formula applies to all rectangular boxes, making it fundamental to engineering.",
         applications: "From shipping containers to room dimensions, cuboid volume calculations are essential in logistics, construction, and everyday life.",
         derivation: "The formula comes from the area of the base rectangle (l·w) multiplied by the height (h). Stack identical layers from bottom to top."
       },
       pythagorean: {
         title: "Pythagorean Theorem Calculator & Visual Proof",
-        introduction: "The Pythagorean theorem is one of the most fundamental results in mathematics: in a right triangle, the square of the hypotenuse equals the sum of squares of the other two sides (a² + b² = c²). This relationship has been known for over 4000 years and has hundreds of proofs.",
-        formula: "The theorem states: a² + b² = c², where 'a' and 'b' are the lengths of the legs (the sides that form the right angle), and 'c' is the length of the hypotenuse (the longest side, opposite the right angle). Use the interactive visualization above to explore this relationship!",
+        introduction: "The Pythagorean theorem is fundamental: in a right triangle, the square of the hypotenuse equals the sum of squares of the other two sides (a² + b² = c²). Use the interactive visualization above to explore this relationship!",
+        formula: "The Pythagorean theorem states: a² + b² = c², where 'a' and 'b' are the lengths of the legs (the sides that form the right angle), and 'c' is the length of the hypotenuse (the longest side).",
         applications: "The Pythagorean theorem is used everywhere: construction (ensuring right angles with 3-4-5 triangles), navigation (GPS and trilateration), computer graphics (distance calculations), physics (vector analysis), and everyday problems like finding the length of a ladder or diagonal of a TV screen.",
         derivation: "There are over 350 known proofs! The most famous include: (1) Rearrangement proof - four identical triangles form the same large square in two ways, (2) Similar triangles proof - dropping an altitude creates proportional relationships, (3) Euclid's windmill proof - geometric construction showing area equivalence. Explore all three proofs in the discovery zones below!"
       },
@@ -809,14 +822,14 @@ const GeometryLab = () => {
       pyramid: {
         title: "Square Pyramid Volume Calculator",
         introduction: "A square pyramid has a square base and four triangular faces meeting at an apex. The Great Pyramid of Giza is the most famous example.",
-        formula: "Volume V = (1/3)a²h, where a is the side length of the square base and h is the height. Like all pyramids, it's 1/3 of a prism with same base.",
+        formula: "Volume V = (1/3)a²h, where a is the side length of the square base and h is the height.",
         applications: "Pyramids are used in architecture, monuments, and design. The shape is stable and visually striking.",
         derivation: "Three identical pyramids can fill one prism, giving the 1/3 factor."
       },
       tri_pyramid: {
         title: "Triangular Pyramid Volume Calculator",
         introduction: "A triangular pyramid (tetrahedron) has four triangular faces. It's the simplest three-dimensional shape with flat faces.",
-        formula: "Volume V = (1/3)Bh where B is the triangular base area. For an equilateral triangle, B = (√3/4)a².",
+        formula: "Volume V = (1/3)Bh where B is the triangular base area.",
         applications: "Tetrahedra appear in molecular geometry (like methane molecules) and as structural elements in engineering.",
         derivation: "The formula derives from the base area multiplied by height, divided by 3."
       }
