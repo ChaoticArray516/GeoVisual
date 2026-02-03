@@ -1,10 +1,10 @@
-# GeoVisual - Volume Calculator | Interactive 3D Geometry Tools
+# CalcVisual - Volume Calculator | Interactive 3D Geometry Tools
 
 **Calculate volume of sphere, cone, cylinder, and cube instantly with our interactive 3D visualizer.** Learn formulas with step-by-step solutions, explore geometric properties, and discover mathematical relationships through visualization. Free online geometry calculator and math solver.
 
 ## Overview
 
-GeoVisual is a **free online volume calculator and interactive 3D geometry visualizer** that combines the precision of a math solver with the clarity of real-time visualizations. Unlike static calculators that only provide numeric results, GeoVisual lets you **see the formulas**, **manipulate 3D shapes in real-time**, and **discover mathematical relationships** through exploration.
+CalcVisual is a **free online volume calculator and interactive 3D geometry visualizer** that combines the precision of a math solver with the clarity of real-time visualizations. Unlike static calculators that only provide numeric results, CalcVisual lets you **see the formulas**, **manipulate 3D shapes in real-time**, and **discover mathematical relationships** through exploration.
 
 The core idea: when you drag the radius slider from 50 to 100, three things happen simultaneously - the sphere grows, the r³ in the formula highlights, and the calculation steps show r³ = 1,000,000. When radius doubles, a message appears: radius × 2 = volume × 8. That's when the relationship becomes obvious.
 
@@ -25,7 +25,7 @@ This transforms the interface from generic "SaaS product" into a serious mathema
 
 ## What Makes It Different
 
-| Traditional Dictionary | GeoVisual |
+| Traditional Dictionary | CalcVisual |
 |----------------------|-----------|
 | Static images and text | Interactive 3D visualizations |
 | Read-only formulas | Manipulatable parameters |
@@ -366,7 +366,7 @@ const ShapeGenerator = {
 > Input: radius = 5, height = 10
 > Output: volume = 261.8
 
-**GeoVisual Approach:**
+**CalcVisual Approach:**
 1. **See the Formula** - V = (4/3)πr³ displayed with highlighted variables
 2. **Manipulate 3D Shape** - Drag sliders and watch sphere grow in real-time
 3. **Step-by-Step Calculation** - Follow each calculation step
@@ -783,7 +783,7 @@ MIT License - Free for educational purposes
 
 ## Development
 
-GeoVisual demonstrates interactive math visualization using pure JavaScript algorithms. No 3D libraries (Three.js, Babylon.js) are used - all projection is calculated from scratch.
+CalcVisual demonstrates interactive math visualization using pure JavaScript algorithms. No 3D libraries (Three.js, Babylon.js) are used - all projection is calculated from scratch.
 
 **Status:** Production Ready (v2.1.0)
 

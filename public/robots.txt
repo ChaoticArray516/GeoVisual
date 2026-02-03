@@ -1,4 +1,4 @@
-# robots.txt for GeoVisual - Interactive Geometry Dictionary
+# robots.txt for Volume Calculator & 3D Visualizer - Interactive Geometry Dictionary
 # https://geovisual.com
 
 User-agent: *

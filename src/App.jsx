@@ -151,58 +151,58 @@ const GeometryLab = () => {
     const metadata = {
       cylinder: {
         // Old: "Cylinder Volume Calculator & Geometry Formulas | Interactive 3D Tools | GeoVisual"
-        title: "Volume of a Cylinder Calculator | Interactive 3D Tools | GeoVisual",
+        title: "Volume of a Cylinder Calculator | Interactive 3D Tools | CalcVisual",
         // Old: "Interactive cylinder volume calculator. Calculate volume of a cylinder instantly with radius and height adjustment. Learn cylinder volume formula V = πr²h with visual proofs and step-by-step solutions."
         description: "Calculate volume of a cylinder instantly with radius and height adjustment. Learn cylinder volume formula V = πr²h with visual proofs and step-by-step solutions. Free 3D calculator.",
         ogImage: "/og-cylinder.png"
       },
       frustum: {
-        title: "Frustum Volume Calculator | Geometry Formulas Reference | GeoVisual",
+        title: "Frustum Volume Calculator | Geometry Formulas Reference | CalcVisual",
         // Old: "Calculate frustum volume with interactive geometry formula sheet. Understand general geometry formulas and equations for geometry. Volume formula V = (1/3)πh(r₁²+r₂²+r₁r₂) explained."
         description: "Calculate frustum volume with interactive tools. Learn frustum volume formula V = (1/3)πh(r₁²+r₂²+r₁r₂) with step-by-step solutions. Free 3D calculator.",
         ogImage: "/og-frustum.png"
       },
       cone: {
         // Old: "Cone Volume Calculator & Geometry Formulas | Interactive 3D Visualizer | GeoVisual"
-        title: "Cone Geometry Formulas & Volume Calculator | Interactive 3D Visualizer | GeoVisual",
+        title: "Cone Geometry Formulas & Volume Calculator | Interactive 3D Visualizer | CalcVisual",
         // Old: "Interactive cone calculator with cone geometry formulas. Access area formulas for all shapes. Learn cone volume formula V = (1/3)πr²h and surface area with slant height. Interactive 3D model."
         description: "Interactive cone calculator with geometry formulas. Learn cone volume V = (1/3)πr²h and surface area with slant height. Adjust radius and height in real-time. Free 3D visualizer.",
         ogImage: "/og-cone.png"
       },
       cube: {
         // Old: "Cube Volume Calculator & Geometry Formulas | Cuboid Volume Formula | GeoVisual"
-        title: "Volume of a Cube Calculator | Interactive 3D Visualizer | GeoVisual",
+        title: "Volume of a Cube Calculator | Interactive 3D Visualizer | CalcVisual",
         // Old: "Interactive cube volume calculator. Calculate volume of a cube instantly with length, width, height adjustment. Learn cuboid volume formula V = l·w·h with visual demonstrations."
         description: "Calculate volume of a cube instantly with length, width, height adjustment. Learn cuboid volume formula V = l·w·h with visual demonstrations. Interactive 3D geometry calculator.",
         ogImage: "/og-cube.png"
       },
       pent_prism: {
-        title: "Pentagonal Prism Volume Calculator | Geometry Formulas Guide | GeoVisual",
+        title: "Pentagonal Prism Volume Calculator | Geometry Formulas Guide | CalcVisual",
         // Old: "Calculate pentagonal prism volume with general geometry formulas. Interactive geometry formula sheet with area formulas for all shapes and real-time measurements."
         description: "Calculate pentagonal prism volume with interactive tools. Learn volume formulas and area calculations with real-time 3D measurements. Free calculator.",
         ogImage: "/og-pentagonal.png"
       },
       pyramid: {
-        title: "Square Pyramid Volume Calculator | Geometry Formula Sheet | GeoVisual",
+        title: "Square Pyramid Volume Calculator | Geometry Formula Sheet | CalcVisual",
         // Old: "Interactive pyramid volume calculator with basic geometry formulas. Access area formulas for all shapes. Learn pyramid volume formula V = (1/3)a²h with 3D model."
         description: "Calculate pyramid volume with interactive tools. Learn pyramid volume formula V = (1/3)a²h and surface area with 3D model. Free geometry calculator.",
         ogImage: "/og-pyramid.png"
       },
       tri_pyramid: {
-        title: "Triangular Pyramid Volume Calculator | Geometry Formulas Reference | GeoVisual",
+        title: "Triangular Pyramid Volume Calculator | Geometry Formulas Reference | CalcVisual",
         // Old: "Calculate triangular pyramid volume with complete geometry formula sheet. Interactive equations for geometry and area formulas for all shapes. Tetrahedron volume explained."
         description: "Calculate triangular pyramid volume with interactive tools. Learn tetrahedron volume formulas and surface area with 3D model. Free calculator.",
         ogImage: "/og-tri-pyramid.png"
       },
       sphere: {
-        title: "Volume of Sphere Formula | Geometry Formulas | GeoVisual",
+        title: "Volume of Sphere Formula | Geometry Formulas | CalcVisual",
         // Old: "Interactive sphere volume calculator with geometry formula sheet. Learn volume of sphere formula V = (4/3)πr³ and area formulas for all shapes. Access basic geometry formulas with interactive 3D demonstrations."
         description: "Interactive sphere volume calculator. Learn volume of sphere formula V = (4/3)πr³ and surface area. Adjust radius in real-time with 3D demonstrations. Free geometry tools.",
         ogImage: "/og-sphere.png"
       },
       pythagorean: {
         // Old: "Pythagorean Theorem Calculator & Visual Proof | Geometry Formulas | GeoVisual"
-        title: "What is the Pythagorean Theorem? Calculator & Visual Proof | GeoVisual",
+        title: "What is the Pythagorean Theorem? Calculator & Visual Proof | CalcVisual",
         // Old: "Interactive calculator answering what is the Pythagorean theorem. Learn Pythagorean theorem formula a² + b² = c² with visual proof. Access geometry formulas and famous Pythagorean triples."
         description: "Interactive calculator: what is the Pythagorean theorem? Learn a² + b² = c² with visual proof. Explore famous Pythagorean triples and real-world applications. Free 3D math tools.",
         ogImage: "/og-pythagorean.png"
@@ -872,7 +872,7 @@ const GeometryLab = () => {
       <header className="max-w-7xl w-full mx-auto p-6 flex flex-col md:flex-row justify-between items-center gap-6 border-b-2 border-swiss-black">
         <div>
           <h1 className="font-serif-display text-display-4xl tracking-tight text-swiss-black">
-            GeoVisual
+            CalcVisual
           </h1>
           <p className="font-sans-body text-display-sm text-swiss-charcoal mt-2">
             Interactive Geometry Dictionary - 3D Calculator & Visualizer
