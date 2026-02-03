@@ -1,10 +1,10 @@
-# GeoVisual - Interactive 3D Geometry Calculator & Visualizer
+# GeoVisual - Volume Calculator | Interactive 3D Geometry Tools
 
-**Calculate sphere, cone, cylinder, and cube volume instantly with our interactive 3D visualizer.** Learn formulas, see step-by-step solutions, and explore geometric properties. Free online geometry calculator and math solver.
+**Calculate volume of sphere, cone, cylinder, and cube instantly with our interactive 3D visualizer.** Learn formulas with step-by-step solutions, explore geometric properties, and discover mathematical relationships through visualization. Free online geometry calculator and math solver.
 
 ## Overview
 
-GeoVisual is an **interactive geometry calculator and 3D visualizer** that combines the precision of a math solver with the clarity of interactive visualizations. Unlike static calculators that only provide numeric results, GeoVisual lets you **see the formulas**, **manipulate 3D shapes in real-time**, and **discover mathematical relationships** through exploration.
+GeoVisual is a **free online volume calculator and interactive 3D geometry visualizer** that combines the precision of a math solver with the clarity of real-time visualizations. Unlike static calculators that only provide numeric results, GeoVisual lets you **see the formulas**, **manipulate 3D shapes in real-time**, and **discover mathematical relationships** through exploration.
 
 The core idea: when you drag the radius slider from 50 to 100, three things happen simultaneously - the sphere grows, the r³ in the formula highlights, and the calculation steps show r³ = 1,000,000. When radius doubles, a message appears: radius × 2 = volume × 8. That's when the relationship becomes obvious.
 
@@ -631,10 +631,19 @@ Step 3: (4/3) × π × r³ = 1,436,755
 ## Content Quality
 
 ### Educational Content
-- 500+ words per premium page
-- 4 discovery zones per shape
-- 3+ insights per page
-- Historical context in collapsible sections
+- **650+ words per shape page** (Comprehensive educational articles)
+- **71 total FAQ entries** (14-15 FAQs per shape covering long-tail keywords)
+- **4 discovery zones per shape** (Interactive experiments and comparisons)
+- **4 content sections per shape**: Introduction, Formula, Applications, Derivation
+- **Historical context**: Archimedes, Euclid, ancient mathematicians
+- **Real-world applications**: Engineering, astronomy, construction, manufacturing
+
+### SEO Optimization
+- **Meta descriptions**: All 11 pages optimized to 140-160 characters for SERP display
+- **Dynamic title tags**: High-traffic keywords (volume of a cylinder, cone geometry formulas, etc.)
+- **Structured data**: WebApplication, MathSolver (4 shapes), FAQPage schemas
+- **Long-tail keyword targeting**: Question-based FAQs for "People Also Ask" optimization
+- **Content depth**: 6.5x expansion from ~100 to ~650 words per shape
 
 ### Code Quality
 - **Component modularity** - Reusable UI library
@@ -662,6 +671,19 @@ Step 3: (4/3) × π × r³ = 1,436,755
 ## Deployment
 
 ### Production Build
+```bash
+npm run build
+```
+Output: `dist/` directory
+
+### SEO Checklist
+- [x] All meta descriptions optimized (140-160 characters)
+- [x] Educational content expanded (650+ words per shape)
+- [x] FAQ sections enhanced (71 total entries)
+- [x] Structured data deployed (WebApplication, MathSolver, FAQPage)
+- [x] High-traffic keywords integrated
+- [ ] Google Rich Results Test validation
+- [ ] Google Search Console re-indexing request
 
 ```bash
 npm run build
